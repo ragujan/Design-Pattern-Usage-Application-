@@ -4,122 +4,124 @@
  */
 package com.rag.syzygy.views;
 
+import com.rag.syzygy.domains.PizzaCustomizedOptions;
 import com.rag.syzygy.util.FoodItemList;
-import com.rag.syzygy.views.customization_options.PizzaCustomization;
+import com.rag.syzygy.views.customization_options.*;
+
+import java.awt.BorderLayout;
 import java.util.Map;
-import javax.swing.JButton;
+import javax.swing.JScrollPane;
 
 /**
- *
  * @author ACER
  */
-public class Customize extends javax.swing.JDialog {
+public class Customize extends javax.swing.JDialog implements CustomizationOptionValueChangedListener {
 
-	/**
-	 * Creates new form Customize
-	 *
-	 */
-	private Map<String, Object> data;
+    /**
+     * Creates new form Customize
+     */
+    private Map<String, Object> data;
+    private JScrollPane jScrollPane;
+    private CustomizationOptions customizationOptions;
+//    private AddedFoodItem addedFoodItem;
+    private ValueChangeListener listener;
+    private CustomizationOptionValueChangedListener customizationOptionValueChangedListener;
 
-	public Customize(java.awt.Frame parent, boolean modal) {
-		super(parent, modal);
-		initComponents();
-	}
+    public void setValueChangeListener(ValueChangeListener listener) {
+        this.listener = listener;
+    }
 
-	public Customize(java.awt.Frame parent, boolean modal, Map<String, Object> values) {
-		super(parent, modal);
-		data = values;
-		initComponents();
-		foodItemNameLabel.setText(data.get("foodName").toString());
-	}
+    public void setCustomizationOptionValueChangedListener(CustomizationOptionValueChangedListener customizationOptionValueChangedListener) {
+        this.customizationOptionValueChangedListener = customizationOptionValueChangedListener;
+    }
 
-	private FoodItemList getFoodItemList() {
-		return FoodItemList.valueOf(data.get("foodName").toString().toUpperCase().replace(" ", "_"));
-	}
 
-	private void orderOptions() {
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.PIZZA.name())) {
-			System.out.println("price of the Pizza item is " + getFoodItemList().getFoodItemName());
-			PizzaCustomization pizzaPanel = new PizzaCustomization();
-			pizzaPanel.setVisible(true);
-			customizationPanel.add(new JButton("test"));
-			customizationPanel.revalidate();
-			customizationPanel.repaint();
 
-		}
+    @Override
+    public void valueChanged(CustomizationOptions customizationOptions) {
+        this.customizationOptions = customizationOptions;
+        if(this.customizationOptions instanceof PizzaCustomizedOptions pizzaCustomizedOptions){
+            this.customizationOptionValueChangedListener.valueChanged(customizationOptions);
+        }
+    }
 
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.PASTA.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-		}
+    public Customize(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+    }
 
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.SALAD.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-		}
+    public Customize(java.awt.Frame parent, boolean modal, Map<String, Object> values,  AddedFoodItem addedFoodItem) {
+        super(parent, modal);
+        initComponents();
+        data = values;
+        foodItemNameLabel.setText(data.get("foodName").toString());
+        customizationPanel.setLayout(new BorderLayout());
+//        this.addedFoodItem = addedFoodItem;
+        this.listener = addedFoodItem;
+        this.customizationOptionValueChangedListener = addedFoodItem;
+        orderOptions();
+    }
 
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.BURGER.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-		}
+    private FoodItemList getFoodItemList() {
+        return FoodItemList.valueOf(data.get("foodName").toString().toUpperCase().replace(" ", "_"));
+    }
 
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.SUSHI.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-		}
+    private void orderOptions() {
+        this.listener.valueChanged("hello");
+        CustomizationOptionPanel customizationOptionsPanel = new CustomizationOptionPanel();
+        if (getFoodItemList().getFoodItemName().equals(FoodItemList.PIZZA.name())) {
+            System.out.println("price of the Pizza item is " + getFoodItemList().getFoodItemName());
+            customizationOptionsPanel = new PizzaCustomization(customizationOptions);
+            customizationOptionsPanel.setValueChanged(this);
 
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.TACOS.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-		}
+        }
 
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.ICE_CREAM.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-		}
+        if (getFoodItemList().getFoodItemName().equals(FoodItemList.PASTA.name())) {
+            System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
+            customizationOptionsPanel = new PastaCustomization();
 
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.CHICKEN_WINGS.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-		}
+        }
 
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.SANDWICH.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-		}
+        if (getFoodItemList().getFoodItemName().equals(FoodItemList.SALAD.name())) {
+            System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
+            customizationOptionsPanel = new SaladCustomization();
+        }
 
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.CHOCOLATE_CAKE.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-		}
+        if (getFoodItemList().getFoodItemName().equals(FoodItemList.BURGER.name())) {
+            customizationOptionsPanel = new BurgerCustomization();
 
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.STEAK.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-		}
+        }
 
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.SHRIMP_SCAMPI.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-		}
+        if (getFoodItemList().getFoodItemName().equals(FoodItemList.ICE_CREAM.name())) {
+            System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
+            customizationOptionsPanel = new IceCreamCustomization();
+        }
 
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.FALAFEL.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-		}
-
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.RAMEN.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-		}
-
-		if (getFoodItemList().getFoodItemName().equals(FoodItemList.FRUIT_SALAD.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-		}
+        customizationOptionsPanel.setVisible(true);
+        jScrollPane = new JScrollPane(customizationOptionsPanel);
+        jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        customizationPanel.add(jScrollPane, BorderLayout.CENTER);
+        jScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        customizationPanel.revalidate();
+        customizationPanel.repaint();
+        this.revalidate();
+        this.repaint();
 
 // Repeat for other food items
-	}
+    }
 
-	/**
-	 * This method is called from within the constructor to initialize the
-	 * form. WARNING: Do NOT modify this code. The content of this method is
-	 * always regenerated by the Form Editor.
-	 */
-	@SuppressWarnings("unchecked")
+    /**
+     * This method is called from within the constructor to initialize the
+     * form. WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
         // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
         private void initComponents() {
 
                 jLabel1 = new javax.swing.JLabel();
                 jLabel2 = new javax.swing.JLabel();
                 foodItemNameLabel = new javax.swing.JLabel();
-                jButton1 = new javax.swing.JButton();
                 customizationPanel = new javax.swing.JPanel();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -128,13 +130,6 @@ public class Customize extends javax.swing.JDialog {
                 jLabel1.setText("Customize Your Food Item");
 
                 jLabel2.setText("Food Item Name");
-
-                jButton1.setText("jButton1");
-                jButton1.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                jButton1ActionPerformed(evt);
-                        }
-                });
 
                 customizationPanel.setBackground(new java.awt.Color(0, 255, 255));
 
@@ -146,7 +141,7 @@ public class Customize extends javax.swing.JDialog {
                 );
                 customizationPanelLayout.setVerticalGroup(
                         customizationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 214, Short.MAX_VALUE)
+                        .addGap(0, 267, Short.MAX_VALUE)
                 );
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -156,93 +151,78 @@ public class Customize extends javax.swing.JDialog {
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(customizationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(customizationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addContainerGap())
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel1)
-                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel2)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(foodItemNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                                                .addComponent(jButton1)
-                                                .addGap(20, 20, 20))))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(jLabel2)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                .addComponent(foodItemNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(jLabel1))
+                                                .addContainerGap(234, Short.MAX_VALUE))))
                 );
                 layout.setVerticalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel1)
+                                .addGap(7, 7, 7)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(7, 7, 7)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel2)
-                                                        .addComponent(foodItemNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jButton1)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                                .addComponent(customizationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel2)
+                                        .addComponent(foodItemNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(customizationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())
                 );
 
                 pack();
         }// </editor-fold>//GEN-END:initComponents
 
-        private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-		// TODO add your handling code here:
-		orderOptions();
-        }//GEN-LAST:event_jButton1ActionPerformed
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-		 */
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		//</editor-fold>
-
-		/* Create and display the dialog */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				Customize dialog = new Customize(new javax.swing.JFrame(), true);
-				dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-					@Override
-					public void windowClosing(java.awt.event.WindowEvent e) {
-						System.exit(0);
-					}
-				});
-				dialog.setVisible(true);
-			}
-		});
-	}
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Customize dialog = new Customize(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private javax.swing.JPanel customizationPanel;
         private javax.swing.JLabel foodItemNameLabel;
-        private javax.swing.JButton jButton1;
         private javax.swing.JLabel jLabel1;
         private javax.swing.JLabel jLabel2;
         // End of variables declaration//GEN-END:variables

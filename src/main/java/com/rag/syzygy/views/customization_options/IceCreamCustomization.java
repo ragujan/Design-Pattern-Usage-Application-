@@ -13,12 +13,12 @@ import javax.swing.JPanel;
  *
  * @author ACER
  */
-public class BurgerCustomization extends CustomizationOptionPanel {
+public class IceCreamCustomization extends CustomizationOptionPanel {
 
 	/**
 	 * Creates new form PizzaCustomization
 	 */
-	public BurgerCustomization() {
+	public IceCreamCustomization() {
 		initComponents();
 	}
 
@@ -50,25 +50,25 @@ public class BurgerCustomization extends CustomizationOptionPanel {
 
                 jLabel1.setText("Burger Customization");
 
-                jLabel2.setText("Cheese Options");
+                jLabel2.setText("Base Flavor");
 
-                jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "American", "Cheddar", "Swiss", "Pepper Jack", "Blue Cheese", "Feta" }));
+                jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vanilla", "Chocolate", "Strawberry", "Coffee", "Mint Chocolate Chip" }));
 
-                jLabel3.setText("Heat Levels");
+                jLabel3.setText("Sauces");
 
-                jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mild", "Medium", "Hot", "Extra Hot" }));
+                jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chocolate Fudge", "Strawberry Syrup", "Hot Caramel", "Marshmallow", "Raspberry Sauce" }));
 
-                jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bacon", "Fried Egg", "Guacamole", "Pineapple", "Onion Rings" }));
+                jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sprinkles", "Chocolate Chips", "Nuts", "Whipped Cream", "Caramel Sauce" }));
 
-                jLabel4.setText("Special Ingredients");
+                jLabel4.setText("Toppings");
 
-                jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lettuce", "Tomato", "Onion", "Pickles", "Jalapeños", "Spinach" }));
+                jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cookie Dough", "Brownie Bits", "Fruit Swirls", "Candy Pieces", "Pretzel Crumbs" }));
 
-                jLabel5.setText("Vegetable 1");
+                jLabel5.setText("Mix-ins");
 
-                jLabel6.setText("Vegetable 2");
+                jLabel6.setText("Extras");
 
-                jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lettuce", "Tomato", "Onion", "Pickles", "Jalapeños", "Spinach" }));
+                jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Waffle Cone", "Rainbow Sprinkles", "Cherries", "Mint Leaves", "Coconut Flakes" }));
 
                 jLabel7.setText("Special Notes");
 
@@ -80,20 +80,17 @@ public class BurgerCustomization extends CustomizationOptionPanel {
                 jPanel1.setLayout(jPanel1Layout);
                 jPanel1Layout.setHorizontalGroup(
                         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addContainerGap()
-                                                .addComponent(jLabel3)
-                                                .addGap(116, 116, 116)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel5)
-                                                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel3))
+                                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -103,7 +100,8 @@ public class BurgerCustomization extends CustomizationOptionPanel {
                                                 .addGap(18, 18, 18)
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jLabel4)))
+                                                        .addComponent(jLabel4)
+                                                        .addComponent(jLabel5)))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGap(6, 6, 6)
                                                 .addComponent(jLabel6))
@@ -111,7 +109,6 @@ public class BurgerCustomization extends CustomizationOptionPanel {
                                                 .addContainerGap()
                                                 .addComponent(jLabel7)))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                 );
                 jPanel1Layout.setVerticalGroup(
                         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,23 +116,21 @@ public class BurgerCustomization extends CustomizationOptionPanel {
                                 .addContainerGap()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(jLabel2)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(jLabel4)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(jLabel2)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel3)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel5)
+                                                .addComponent(jLabel4)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -156,9 +151,10 @@ public class BurgerCustomization extends CustomizationOptionPanel {
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel1))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel1)
+                                                .addContainerGap(265, Short.MAX_VALUE))
+                                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1)

@@ -9,7 +9,7 @@ package com.rag.syzygy.views.customization_options;
  *
  * @author ACER
  */
-public class SaladCustomization extends javax.swing.JPanel {
+public class SaladCustomization extends CustomizationOptionPanel {
 
 	/**
 	 * Creates new form PizzaCustomization
@@ -27,9 +27,53 @@ public class SaladCustomization extends javax.swing.JPanel {
         // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
         private void initComponents() {
 
+                jComboBox2 = new javax.swing.JComboBox<>();
                 jLabel1 = new javax.swing.JLabel();
+                jScrollPane1 = new javax.swing.JScrollPane();
+                jTextArea1 = new javax.swing.JTextArea();
+                jButton1 = new javax.swing.JButton();
+                jLabel2 = new javax.swing.JLabel();
+                jComboBox1 = new javax.swing.JComboBox<>();
+                jLabel3 = new javax.swing.JLabel();
+                jComboBox3 = new javax.swing.JComboBox<>();
+                jLabel4 = new javax.swing.JLabel();
+                jComboBox4 = new javax.swing.JComboBox<>();
+                jLabel5 = new javax.swing.JLabel();
+                jComboBox5 = new javax.swing.JComboBox<>();
+                jLabel6 = new javax.swing.JLabel();
+
+                jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
                 jLabel1.setText("Salad Customization");
+
+                jTextArea1.setColumns(20);
+                jTextArea1.setRows(5);
+                jScrollPane1.setViewportView(jTextArea1);
+
+                jButton1.setText("Done");
+                jButton1.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton1ActionPerformed(evt);
+                        }
+                });
+
+                jLabel2.setText("Tortilla Type");
+
+                jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Corn", "Flour", "Whole Wheat", "Hard Shell", "Soft Shell" }));
+
+                jLabel3.setText("Protein Options");
+
+                jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Grilled Chicken", "Beef Barbacoa", "Carnitas", "Shrimp", "Tofu" }));
+
+                jLabel4.setText("Toppings");
+
+                jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Salsa", "Guacamole", "Sour Cream", "Pico de Gallo", "Cilantro", "Onions" }));
+
+                jLabel5.setText("Vegetables");
+
+                jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lettuce", "Tomatoes", "Onions", "Jalapeños", "Bell Peppers" }));
+
+                jLabel6.setText("Extra Notes");
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
@@ -37,20 +81,81 @@ public class SaladCustomization extends javax.swing.JPanel {
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel1)
-                                .addContainerGap(280, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(jButton1))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                        .addComponent(jLabel1)
+                                                                        .addComponent(jLabel2)
+                                                                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(jLabel3)
+                                                                        .addComponent(jComboBox3, 0, 156, Short.MAX_VALUE))
+                                                                .addGap(36, 36, 36)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                        .addComponent(jLabel4)
+                                                                        .addComponent(jComboBox4, 0, 163, Short.MAX_VALUE)
+                                                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                        .addComponent(jLabel6))
+                                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addContainerGap())
                 );
                 layout.setVerticalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel1)
-                                .addContainerGap(278, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1)
+                                .addContainerGap())
                 );
         }// </editor-fold>//GEN-END:initComponents
 
+        private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+                // TODO add your handling code here:
+
+        }//GEN-LAST:event_jButton1ActionPerformed
+
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
+        private javax.swing.JButton jButton1;
+        private javax.swing.JComboBox<String> jComboBox1;
+        private javax.swing.JComboBox<String> jComboBox2;
+        private javax.swing.JComboBox<String> jComboBox3;
+        private javax.swing.JComboBox<String> jComboBox4;
+        private javax.swing.JComboBox<String> jComboBox5;
         private javax.swing.JLabel jLabel1;
+        private javax.swing.JLabel jLabel2;
+        private javax.swing.JLabel jLabel3;
+        private javax.swing.JLabel jLabel4;
+        private javax.swing.JLabel jLabel5;
+        private javax.swing.JLabel jLabel6;
+        private javax.swing.JScrollPane jScrollPane1;
+        private javax.swing.JTextArea jTextArea1;
         // End of variables declaration//GEN-END:variables
 }
