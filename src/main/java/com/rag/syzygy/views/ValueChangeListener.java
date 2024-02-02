@@ -11,6 +11,5 @@ import com.rag.syzygy.views.customization_options.CustomizationOptions;
  * @author ACER
  */
 public interface ValueChangeListener {
-
 	void valueChanged(String newValue);
 }

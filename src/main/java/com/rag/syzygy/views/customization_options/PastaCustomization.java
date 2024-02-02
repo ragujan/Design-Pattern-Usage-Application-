@@ -4,11 +4,17 @@
  */
 package com.rag.syzygy.views.customization_options;
 
+import java.awt.Window;
+import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author ACER
  */
 public class PastaCustomization extends CustomizationOptionPanel {
+
+	CustomizationOptions customizationOptions;
 
 	/**
 	 * Creates new form PizzaCustomization
@@ -67,6 +73,11 @@ public class PastaCustomization extends CustomizationOptionPanel {
                 jScrollPane1.setViewportView(jTextArea1);
 
                 jButton1.setText("Done");
+                jButton1.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton1ActionPerformed(evt);
+                        }
+                });
 
                 jLabel7.setText("Vegetable option");
 
@@ -141,6 +152,14 @@ public class PastaCustomization extends CustomizationOptionPanel {
                                 .addContainerGap(12, Short.MAX_VALUE))
                 );
         }// </editor-fold>//GEN-END:initComponents
+
+        private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+		// TODO add your handling code here:
+		valueChanged.valueChanged(this.customizationOptions);
+		JComponent comp = (JComponent) evt.getSource();
+		Window win = SwingUtilities.getWindowAncestor(comp);
+		win.dispose();
+        }//GEN-LAST:event_jButton1ActionPerformed
 
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
