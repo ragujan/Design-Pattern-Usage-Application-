@@ -4,7 +4,7 @@
  */
 package com.rag.syzygy.views.customization_options;
 
-import com.rag.syzygy.customized_food_domains.CustomizedBurgerOptions;
+import com.rag.syzygy.domains.customized_food_domains.CustomizedBurgerOptions;
 
 import java.awt.*;
 import javax.swing.*;

@@ -5,7 +5,7 @@
  */
 package com.rag.syzygy.views.customization_options;
 
-import com.rag.syzygy.customized_food_domains.CustomizedSaladOptions;
+import com.rag.syzygy.domains.customized_food_domains.CustomizedSaladOptions;
 import java.awt.Window;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
