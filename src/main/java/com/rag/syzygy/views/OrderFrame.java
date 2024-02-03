@@ -4,7 +4,9 @@
  */
 package com.rag.syzygy.views;
 
+import com.rag.syzygy.dao.AddedFoodItemDAO;
 import com.rag.syzygy.domains.Customer;
+import com.rag.syzygy.domains.CustomerOrder;
 import com.rag.syzygy.util.FoodItemList;
 
 import java.awt.BorderLayout;
@@ -12,7 +14,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -66,25 +67,32 @@ public class OrderFrame extends javax.swing.JFrame {
 
 	}
 
-	public void collectFoodItems() {
+	public CustomerOrder createOrder() {
+		List<AddedFoodItemDAO> addedFoodItemDAOS = new LinkedList<>();
 		for (Component component : myJPanel.getComponents()) {
 
 			if (component instanceof AddedFoodItem) {
 				AddedFoodItem foodItem = (AddedFoodItem) component;
+				if (foodItem.getCustomizedOptions() == null) {
+					return null;
+				}
+				addedFoodItemDAOS.add(new AddedFoodItemDAO(
+						foodItem.getFoodItemName(),foodItem.getPrice(),foodItem.getQty(),foodItem.getCustomizedOptions()));
 
 				System.out.println("food item name is " + foodItem.getFoodItemName());
 
-				if (foodItem.getCustomizedOptions() == null) {
-					return;
-				}
-				Map<String, Object> map = foodItem.getCustomizedOptions().getKeysValue();
-				for (Map.Entry<String, Object> entry : map.entrySet()) {
-					System.out.println("option is " + entry.getKey() + " value is " + entry.getValue());
-				}
-				System.out.println("++++++++---------+++++++++");
+
+//				Map<String, Object> map = foodItem.getCustomizedOptions().getKeysValue();
+//				for (Map.Entry<String, Object> entry : map.entrySet()) {
+//					System.out.println("option is " + entry.getKey() + " value is " + entry.getValue());
+//				}
+//				System.out.println("++++++++---------+++++++++");
+
 
 			}
 		}
+
+		return new CustomerOrder.Builder().orders(addedFoodItemDAOS).customer(customer).build();
 	}
 
 	private void loadFoodItems() {
@@ -251,7 +259,7 @@ public class OrderFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 	    // TODO add your handling code here:
-	    collectFoodItems();
+	    createOrder();
     }//GEN-LAST:event_jButton2ActionPerformed
 
         private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
