@@ -4,9 +4,7 @@
  */
 package com.rag.syzygy.views;
 
-import com.rag.syzygy.domains.CustomizedOptions;
-import com.rag.syzygy.domains.CustomizedPastaOptions;
-import com.rag.syzygy.domains.CustomizedPizzaOptions;
+import com.rag.syzygy.customized_food_domains.CustomizedOptions;
 import com.rag.syzygy.listeners.ValueChangeListener;
 import com.rag.syzygy.util.FoodItemList;
 import com.rag.syzygy.views.customization_options.*;

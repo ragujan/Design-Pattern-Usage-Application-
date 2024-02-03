@@ -1,4 +1,4 @@
-package com.rag.syzygy.domains;
+package com.rag.syzygy.customized_food_domains;
 
 public class CustomizedBurgerOptions extends CustomizedOptions{
     private String cheeseOptions;

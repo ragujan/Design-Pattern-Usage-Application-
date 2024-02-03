@@ -1,4 +1,4 @@
-package com.rag.syzygy.domains;
+package com.rag.syzygy.customized_food_domains;
 
 public class CustomizedSaladOptions extends CustomizedOptions{
     private String tortillaType;

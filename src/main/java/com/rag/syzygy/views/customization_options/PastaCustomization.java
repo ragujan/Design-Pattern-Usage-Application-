@@ -4,8 +4,7 @@
  */
 package com.rag.syzygy.views.customization_options;
 
-import com.rag.syzygy.domains.CustomizedOptions;
-import com.rag.syzygy.domains.CustomizedPastaOptions;
+import com.rag.syzygy.customized_food_domains.CustomizedPastaOptions;
 
 import java.awt.Window;
 import javax.swing.JComponent;

@@ -4,7 +4,7 @@
  */
 package com.rag.syzygy.views;
 
-import com.rag.syzygy.domains.*;
+import com.rag.syzygy.customized_food_domains.*;
 import com.rag.syzygy.util.FoodItemList;
 import com.rag.syzygy.views.customization_options.CustomizationLabel;
 import com.rag.syzygy.listeners.ValueChangeListener;
