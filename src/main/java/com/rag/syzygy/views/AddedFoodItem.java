@@ -128,6 +128,23 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
 
 		}
 
+		if (customizationOptions instanceof CustomizedIceCreamOptions customizedIceCreamOptions) {
+
+			orderScrollPaneJPanel.setLayout(new GridLayout(6, 1));
+			JPanel baseFlavourPanel = new CustomizationLabel("base flavour", customizedIceCreamOptions.getBaseFlavour());
+			JPanel saucesPanel = new CustomizationLabel("sauces", customizedIceCreamOptions.getSauces());
+			JPanel toppingsPanel = new CustomizationLabel("toppings", customizedIceCreamOptions.getToppings());
+			JPanel mixInsPanel = new CustomizationLabel("mix-ins", customizedIceCreamOptions.getMixIns());
+			JPanel extrasPanel = new CustomizationLabel("extras", customizedIceCreamOptions.getExtras());
+			JPanel specialNotePanel = new CustomizationLabel("special note", customizedIceCreamOptions.getSpecialNote());
+
+			orderScrollPaneJPanel.add(baseFlavourPanel);
+			orderScrollPaneJPanel.add(saucesPanel);
+			orderScrollPaneJPanel.add(toppingsPanel);
+			orderScrollPaneJPanel.add(mixInsPanel);
+			orderScrollPaneJPanel.add(extrasPanel);
+			orderScrollPaneJPanel.add(specialNotePanel);
+		}
 	}
 
 	public double retriveFoodItemPrice(String name) {

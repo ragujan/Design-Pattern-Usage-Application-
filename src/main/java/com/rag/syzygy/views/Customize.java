@@ -76,26 +76,21 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
 			System.out.println("price of the Pizza item is " + getFoodItemList().getFoodItemName());
 //            customizationOptionsPanel = new PizzaCustomization(customizationOptions);
 			customizationOptionsPanel = new PizzaCustomization();
-			customizationOptionsPanel.setValueChanged(this);
-
 		}
 
 		if (getFoodItemList().getFoodItemName().equals(FoodItemList.PASTA.name())) {
 			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
 			customizationOptionsPanel = new PastaCustomization();
-			customizationOptionsPanel.setValueChanged(this);
 
 		}
 
 		if (getFoodItemList().getFoodItemName().equals(FoodItemList.SALAD.name())) {
 			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
 			customizationOptionsPanel = new SaladCustomization();
-			customizationOptionsPanel.setValueChanged(this);
 		}
 
 		if (getFoodItemList().getFoodItemName().equals(FoodItemList.BURGER.name())) {
 			customizationOptionsPanel = new BurgerCustomization();
-			customizationOptionsPanel.setValueChanged(this);
 
 		}
 
@@ -104,6 +99,7 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
 			customizationOptionsPanel = new IceCreamCustomization();
 		}
 
+		customizationOptionsPanel.setValueChanged(this);
 		customizationOptionsPanel.setVisible(true);
 		jScrollPane = new JScrollPane(customizationOptionsPanel);
 		jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
