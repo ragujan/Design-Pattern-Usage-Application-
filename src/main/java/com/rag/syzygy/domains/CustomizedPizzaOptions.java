@@ -8,7 +8,7 @@ package com.rag.syzygy.domains;
  *
  * @author ACER
  */
-public class CustomizedPizzaOptions extends CustomizationOptions {
+public class CustomizedPizzaOptions extends CustomizedOptions {
 
 	private String crust;
 	private String size;

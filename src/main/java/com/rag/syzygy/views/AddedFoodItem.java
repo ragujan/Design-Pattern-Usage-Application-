@@ -4,11 +4,9 @@
  */
 package com.rag.syzygy.views;
 
-import com.rag.syzygy.domains.CustomizedPastaOptions;
+import com.rag.syzygy.domains.*;
 import com.rag.syzygy.util.FoodItemList;
 import com.rag.syzygy.views.customization_options.CustomizationLabel;
-import com.rag.syzygy.domains.CustomizationOptions;
-import com.rag.syzygy.domains.CustomizedPizzaOptions;
 import com.rag.syzygy.listeners.ValueChangeListener;
 
 import java.awt.*;
@@ -21,129 +19,164 @@ import javax.swing.*;
  */
 public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeListener, CustomizationOptionValueChangedListener {
 
-    private String foodItemName;
-    private double price;
-    private int qty;
-    private JPanel parentPanel;
-    Customize customize;
+	private String foodItemName;
+	private double price;
+	private int qty;
+	private JPanel parentPanel;
+	Customize customize;
 
-    public AddedFoodItem(String foodItemName, int qty, JPanel parentPanel) {
-        initComponents();
-        this.parentPanel = parentPanel;
-        this.foodItemName = foodItemName;
-        this.price = retriveFoodItemPrice(foodItemName);
+	public AddedFoodItem(String foodItemName, int qty, JPanel parentPanel) {
+		initComponents();
+		this.parentPanel = parentPanel;
+		this.foodItemName = foodItemName;
+		this.price = retriveFoodItemPrice(foodItemName);
 
-        this.qty = qty;
-        if (foodItemName != null) {
-            foodNameLable.setText(foodItemName);
-        }
-        if (price != 0) {
-            foodPriceLabel.setText(Double.toString(price));
-        }
-        if (qty != 0) {
-            foodQtyLabel.setText(String.valueOf(qty));
-        }
+		this.qty = qty;
+		if (foodItemName != null) {
+			foodNameLable.setText(foodItemName);
+		}
+		if (price != 0) {
+			foodPriceLabel.setText(Double.toString(price));
+		}
+		if (qty != 0) {
+			foodQtyLabel.setText(String.valueOf(qty));
+		}
 
-        jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
-    }
+		jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
+	}
 
-    @Override
-    public void valueChanged(String newValue) {
-    }
+	@Override
+	public void valueChanged(String newValue) {
+	}
 
-    @Override
-    public void valueChanged(CustomizationOptions customizationOptions) {
-            orderScrollPaneJPanel.removeAll();
-        if (customizationOptions instanceof CustomizedPizzaOptions customizedPizzaOptions) {
+	@Override
+	public void valueChanged(CustomizedOptions customizationOptions) {
+		orderScrollPaneJPanel.removeAll();
+		if (customizationOptions instanceof CustomizedPizzaOptions customizedPizzaOptions) {
 
 //            orderScrollPaneJPanel.removeAll();
-            JPanel crust = new CustomizationLabel("crust", customizedPizzaOptions.getCrust());
-            JPanel size = new CustomizationLabel("size", customizedPizzaOptions.getSize());
-            JPanel toppings1 = new CustomizationLabel("topping1", customizedPizzaOptions.getToppings1());
-            JPanel toppings2 = new CustomizationLabel("topping1", customizedPizzaOptions.getToppings2());
-            JPanel slices = new CustomizationLabel("slices", Integer.toString(customizedPizzaOptions.getSlices()));
-            JPanel cheeseOptions = new CustomizationLabel("cheese options", customizedPizzaOptions.getCheeseOptions());
-            JPanel description = new CustomizationLabel("description", customizedPizzaOptions.getDescription());
+			JPanel crust = new CustomizationLabel("crust", customizedPizzaOptions.getCrust());
+			JPanel size = new CustomizationLabel("size", customizedPizzaOptions.getSize());
+			JPanel toppings1 = new CustomizationLabel("topping1", customizedPizzaOptions.getToppings1());
+			JPanel toppings2 = new CustomizationLabel("topping1", customizedPizzaOptions.getToppings2());
+			JPanel slices = new CustomizationLabel("slices", Integer.toString(customizedPizzaOptions.getSlices()));
+			JPanel cheeseOptions = new CustomizationLabel("cheese options", customizedPizzaOptions.getCheeseOptions());
+			JPanel description = new CustomizationLabel("description", customizedPizzaOptions.getDescription());
 
-            orderScrollPaneJPanel.setLayout(new GridLayout(7, 1));
-            orderScrollPaneJPanel.add(crust);
-            orderScrollPaneJPanel.add(size);
-            orderScrollPaneJPanel.add(toppings1);
-            orderScrollPaneJPanel.add(toppings2);
-            orderScrollPaneJPanel.add(slices);
-            orderScrollPaneJPanel.add(cheeseOptions);
-            orderScrollPaneJPanel.add(description);
-	    System.out.println("hey");
+			orderScrollPaneJPanel.setLayout(new GridLayout(7, 1));
+			orderScrollPaneJPanel.add(crust);
+			orderScrollPaneJPanel.add(size);
+			orderScrollPaneJPanel.add(toppings1);
+			orderScrollPaneJPanel.add(toppings2);
+			orderScrollPaneJPanel.add(slices);
+			orderScrollPaneJPanel.add(cheeseOptions);
+			orderScrollPaneJPanel.add(description);
+			System.out.println("hey");
 
-        }
+		}
 
-        if (customizationOptions instanceof CustomizedPastaOptions customizedPastaOptions) {
-            orderScrollPaneJPanel.setLayout(new GridLayout(6, 1));
+		if (customizationOptions instanceof CustomizedPastaOptions customizedPastaOptions) {
+			orderScrollPaneJPanel.setLayout(new GridLayout(6, 1));
 
-            JPanel typePanel = new CustomizationLabel("type", customizedPastaOptions.getType());
-            JPanel saucePanel = new CustomizationLabel("sauce", customizedPastaOptions.getSauce());
-            JPanel cheeseToppingsPanel = new CustomizationLabel("cheese toppings", customizedPastaOptions.getCheeseToppings());
-            JPanel proteinAdditionPanel = new CustomizationLabel("protein addition", customizedPastaOptions.getProteinAddition());
-            JPanel vegetableOptionPanel = new CustomizationLabel("vegetable option", customizedPastaOptions.getVegetableOption());
-            JPanel specialNotesPanel = new CustomizationLabel("special notes", customizedPastaOptions.getSpecialNotes());
+			JPanel typePanel = new CustomizationLabel("type", customizedPastaOptions.getType());
+			JPanel saucePanel = new CustomizationLabel("sauce", customizedPastaOptions.getSauce());
+			JPanel cheeseToppingsPanel = new CustomizationLabel("cheese toppings", customizedPastaOptions.getCheeseToppings());
+			JPanel proteinAdditionPanel = new CustomizationLabel("protein addition", customizedPastaOptions.getProteinAddition());
+			JPanel vegetableOptionPanel = new CustomizationLabel("vegetable option", customizedPastaOptions.getVegetableOption());
+			JPanel specialNotesPanel = new CustomizationLabel("special notes", customizedPastaOptions.getSpecialNotes());
 
-            orderScrollPaneJPanel.add(typePanel);
-            orderScrollPaneJPanel.add(saucePanel);
-            orderScrollPaneJPanel.add(cheeseToppingsPanel);
-            orderScrollPaneJPanel.add(proteinAdditionPanel);
-            orderScrollPaneJPanel.add(vegetableOptionPanel);
-            orderScrollPaneJPanel.add(specialNotesPanel);
-        }
+			orderScrollPaneJPanel.add(typePanel);
+			orderScrollPaneJPanel.add(saucePanel);
+			orderScrollPaneJPanel.add(cheeseToppingsPanel);
+			orderScrollPaneJPanel.add(proteinAdditionPanel);
+			orderScrollPaneJPanel.add(vegetableOptionPanel);
+			orderScrollPaneJPanel.add(specialNotesPanel);
+		}
+		if (customizationOptions instanceof CustomizedSaladOptions customizedSaladOptions) {
 
-    }
+			orderScrollPaneJPanel.setLayout(new GridLayout(6, 1));
 
-    public double retriveFoodItemPrice(String name) {
-        try {
-            FoodItemList foodItem = FoodItemList.valueOf(name.toUpperCase().replace(" ", "_"));
-            return foodItem.getPrice();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
+			JPanel tortillaTypePanel = new CustomizationLabel("tortilla type", customizedSaladOptions.getTortillaType());
+			JPanel proteinOptionsPanel = new CustomizationLabel("protein options", customizedSaladOptions.getProteinOptions());
+			JPanel toppingsPanel = new CustomizationLabel("toppings", customizedSaladOptions.getToppings());
+			JPanel vegetablesPanel = new CustomizationLabel("vegetables", customizedSaladOptions.getVegetables());
+			JPanel specialNotesPanel = new CustomizationLabel("special notes", customizedSaladOptions.getSpecialNotes());
 
-    public String getFoodItemName() {
-        return foodItemName;
-    }
+			orderScrollPaneJPanel.add(tortillaTypePanel);
+			orderScrollPaneJPanel.add(proteinOptionsPanel);
+			orderScrollPaneJPanel.add(toppingsPanel);
+			orderScrollPaneJPanel.add(vegetablesPanel);
+			orderScrollPaneJPanel.add(specialNotesPanel);
 
-    public void setFoodItemName(String foodItemName) {
-        this.foodItemName = foodItemName;
-    }
+		}
 
-    public Double getPrice() {
-        return price;
-    }
+		if (customizationOptions instanceof CustomizedBurgerOptions customizedBurgerOptions) {
+			orderScrollPaneJPanel.setLayout(new GridLayout(6, 1));
+			JPanel cheeseOptionsPanel = new CustomizationLabel("cheese options", customizedBurgerOptions.getCheeseOptions());
+			JPanel heatLevelPanel = new CustomizationLabel("heat level", customizedBurgerOptions.getHeatLevel());
+			JPanel specialIngredientsPanel = new CustomizationLabel("special ingredients", customizedBurgerOptions.getSpecialIngredients());
+			JPanel vegetable1Panel = new CustomizationLabel("vegetable 1", customizedBurgerOptions.getVegetable1());
+			JPanel vegetable2Panel = new CustomizationLabel("vegetable 2", customizedBurgerOptions.getVegetable2());
+			JPanel specialNotePanel = new CustomizationLabel("special note", customizedBurgerOptions.getSpecialNote());
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
+			orderScrollPaneJPanel.add(cheeseOptionsPanel);
+			orderScrollPaneJPanel.add(heatLevelPanel);
+			orderScrollPaneJPanel.add(specialIngredientsPanel);
+			orderScrollPaneJPanel.add(vegetable1Panel);
+			orderScrollPaneJPanel.add(vegetable2Panel);
+			orderScrollPaneJPanel.add(specialNotePanel);
 
-    public int getQty() {
-        return qty;
-    }
+		}
 
-    public void setQty(int qty) {
-        this.qty = qty;
-    }
+	}
 
-    /**
-     * Creates new form AddedFoodItem
-     */
-    public AddedFoodItem() {
-        initComponents();
-    }
+	public double retriveFoodItemPrice(String name) {
+		try {
+			FoodItemList foodItem = FoodItemList.valueOf(name.toUpperCase().replace(" ", "_"));
+			return foodItem.getPrice();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
-    /**
-     * This method is called from within the constructor to initialize the
-     * form. WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+	public String getFoodItemName() {
+		return foodItemName;
+	}
+
+	public void setFoodItemName(String foodItemName) {
+		this.foodItemName = foodItemName;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public int getQty() {
+		return qty;
+	}
+
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+
+	/**
+	 * Creates new form AddedFoodItem
+	 */
+	public AddedFoodItem() {
+		initComponents();
+	}
+
+	/**
+	 * This method is called from within the constructor to initialize the
+	 * form. WARNING: Do NOT modify this code. The content of this method is
+	 * always regenerated by the Form Editor.
+	 */
+	@SuppressWarnings("unchecked")
         // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
         private void initComponents() {
 
@@ -272,18 +305,18 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
         }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        this.parentPanel.remove(this);
+	    // TODO add your handling code here:
+	    this.parentPanel.remove(this);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        Map<String, Object> data = new HashMap<>();
-        data.put("foodName", foodItemName);
-        customize = new Customize(new JFrame(), true, data, this);
-        customize.setValueChangeListener(this);
-        customize.setCustomizationOptionValueChangedListener(this);
-        customize.setVisible(true);
+	    // TODO add your handling code here:
+	    Map<String, Object> data = new HashMap<>();
+	    data.put("foodName", foodItemName);
+	    customize = new Customize(new JFrame(), true, data, this);
+	    customize.setValueChangeListener(this);
+	    customize.setCustomizationOptionValueChangedListener(this);
+	    customize.setVisible(true);
 
 
     }//GEN-LAST:event_jButton1ActionPerformed

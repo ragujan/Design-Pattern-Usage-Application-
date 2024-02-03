@@ -1,7 +1,7 @@
 package com.rag.syzygy.views;
 
-import com.rag.syzygy.domains.CustomizationOptions;
+import com.rag.syzygy.domains.CustomizedOptions;
 
 public interface CustomizationOptionValueChangedListener {
-    void valueChanged(CustomizationOptions customizationOptions);
+    void valueChanged(CustomizedOptions customizationOptions);
 }

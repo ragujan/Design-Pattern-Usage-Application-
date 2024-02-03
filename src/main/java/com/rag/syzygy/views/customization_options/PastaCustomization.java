@@ -4,7 +4,7 @@
  */
 package com.rag.syzygy.views.customization_options;
 
-import com.rag.syzygy.domains.CustomizationOptions;
+import com.rag.syzygy.domains.CustomizedOptions;
 import com.rag.syzygy.domains.CustomizedPastaOptions;
 
 import java.awt.Window;
@@ -16,7 +16,7 @@ import javax.swing.SwingUtilities;
  */
 public class PastaCustomization extends CustomizationOptionPanel {
 
-    CustomizationOptions customizationOptions;
+//    CustomizationOptions customizationOptions;
 
     /**
      * Creates new form PizzaCustomization

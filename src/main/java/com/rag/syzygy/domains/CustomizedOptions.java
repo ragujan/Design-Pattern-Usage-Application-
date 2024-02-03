@@ -8,6 +8,6 @@ package com.rag.syzygy.domains;
  *
  * @author ACER
  */
-public class CustomizationOptions {
+public class CustomizedOptions {
 	
 }

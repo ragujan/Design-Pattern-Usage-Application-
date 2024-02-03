@@ -4,7 +4,7 @@
  */
 package com.rag.syzygy.views.customization_options;
 
-import com.rag.syzygy.domains.CustomizationOptions;
+import com.rag.syzygy.domains.CustomizedOptions;
 import com.rag.syzygy.domains.CustomizedPizzaOptions;
 import com.rag.syzygy.util.PizzaTopping1;
 import com.rag.syzygy.util.PizzaTopping2;
@@ -37,7 +37,7 @@ public class PizzaCustomization extends CustomizationOptionPanel {
 
 	}
 
-	public PizzaCustomization(CustomizationOptions customizationOptions) {
+	public PizzaCustomization(CustomizedOptions customizationOptions) {
 		this();
 //		this.customizationOptions = customizationOptions;
 		System.out.println("hey");
@@ -273,7 +273,7 @@ public class PizzaCustomization extends CustomizationOptionPanel {
 	    String specialNote = this.extraNotes.getText();
 	    String cheeseOptions = this.cheeseOptions.getSelectedItem().toString();
 
-	   CustomizationOptions customizationOptions = new CustomizedPizzaOptions(crustType, size, topping1, topping2, slices, cheeseOptions, specialNote);
+	   CustomizedOptions customizationOptions = new CustomizedPizzaOptions(crustType, size, topping1, topping2, slices, cheeseOptions, specialNote);
 	    valueChanged.valueChanged(customizationOptions);
 	    JComponent comp = (JComponent) evt.getSource();
 	    Window win = SwingUtilities.getWindowAncestor(comp);

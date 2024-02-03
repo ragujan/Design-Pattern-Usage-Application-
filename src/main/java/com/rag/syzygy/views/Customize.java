@@ -4,7 +4,7 @@
  */
 package com.rag.syzygy.views;
 
-import com.rag.syzygy.domains.CustomizationOptions;
+import com.rag.syzygy.domains.CustomizedOptions;
 import com.rag.syzygy.domains.CustomizedPastaOptions;
 import com.rag.syzygy.domains.CustomizedPizzaOptions;
 import com.rag.syzygy.listeners.ValueChangeListener;
@@ -20,110 +20,109 @@ import javax.swing.JScrollPane;
  */
 public class Customize extends javax.swing.JDialog implements CustomizationOptionValueChangedListener {
 
-    /**
-     * Creates new form Customize
-     */
-    private Map<String, Object> data;
-    private JScrollPane jScrollPane;
-    private CustomizationOptions customizationOptions;
+	/**
+	 * Creates new form Customize
+	 */
+	private Map<String, Object> data;
+	private JScrollPane jScrollPane;
+	private CustomizedOptions customizationOptions;
 //    private AddedFoodItem addedFoodItem;
-    private ValueChangeListener listener;
-    private CustomizationOptionValueChangedListener customizationOptionValueChangedListener;
+	private ValueChangeListener listener;
+	private CustomizationOptionValueChangedListener customizationOptionValueChangedListener;
 
-    public void setValueChangeListener(ValueChangeListener listener) {
-        this.listener = listener;
-    }
+	public void setValueChangeListener(ValueChangeListener listener) {
+		this.listener = listener;
+	}
 
-    public void setCustomizationOptionValueChangedListener(CustomizationOptionValueChangedListener customizationOptionValueChangedListener) {
-        this.customizationOptionValueChangedListener = customizationOptionValueChangedListener;
-    }
+	public void setCustomizationOptionValueChangedListener(CustomizationOptionValueChangedListener customizationOptionValueChangedListener) {
+		this.customizationOptionValueChangedListener = customizationOptionValueChangedListener;
+	}
 
+	@Override
+	public void valueChanged(CustomizedOptions customizationOptions) {
+		this.customizationOptions = customizationOptions;
+//        if(this.customizationOptions instanceof CustomizedPizzaOptions customizedPizzaOptions){
+//        }
+//        if(this.customizationOptions instanceof CustomizedPastaOptions customizedPastaOptions){
+		this.customizationOptionValueChangedListener.valueChanged(customizationOptions);
+//        }
+	}
 
+	public Customize(java.awt.Frame parent, boolean modal) {
+		super(parent, modal);
+		initComponents();
+	}
 
-    @Override
-    public void valueChanged(CustomizationOptions customizationOptions) {
-        this.customizationOptions = customizationOptions;
-        if(this.customizationOptions instanceof CustomizedPizzaOptions customizedPizzaOptions){
-            this.customizationOptionValueChangedListener.valueChanged(customizationOptions);
-        }
-        if(this.customizationOptions instanceof CustomizedPastaOptions customizedPastaOptions){
-            this.customizationOptionValueChangedListener.valueChanged(customizationOptions);
-        }
-    }
-
-    public Customize(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
-
-    public Customize(java.awt.Frame parent, boolean modal, Map<String, Object> values,  AddedFoodItem addedFoodItem) {
-        super(parent, modal);
-        initComponents();
-        data = values;
-        foodItemNameLabel.setText(data.get("foodName").toString());
-        customizationPanel.setLayout(new BorderLayout());
+	public Customize(java.awt.Frame parent, boolean modal, Map<String, Object> values, AddedFoodItem addedFoodItem) {
+		super(parent, modal);
+		initComponents();
+		data = values;
+		foodItemNameLabel.setText(data.get("foodName").toString());
+		customizationPanel.setLayout(new BorderLayout());
 //        this.addedFoodItem = addedFoodItem;
-        this.listener = addedFoodItem;
-        this.customizationOptionValueChangedListener = addedFoodItem;
-        orderOptions();
-    }
+		this.listener = addedFoodItem;
+		this.customizationOptionValueChangedListener = addedFoodItem;
+		orderOptions();
+	}
 
-    private FoodItemList getFoodItemList() {
-        return FoodItemList.valueOf(data.get("foodName").toString().toUpperCase().replace(" ", "_"));
-    }
+	private FoodItemList getFoodItemList() {
+		return FoodItemList.valueOf(data.get("foodName").toString().toUpperCase().replace(" ", "_"));
+	}
 
-    private void orderOptions() {
-        this.listener.valueChanged("hello");
-        CustomizationOptionPanel customizationOptionsPanel = new CustomizationOptionPanel();
-        if (getFoodItemList().getFoodItemName().equals(FoodItemList.PIZZA.name())) {
-            System.out.println("price of the Pizza item is " + getFoodItemList().getFoodItemName());
+	private void orderOptions() {
+		this.listener.valueChanged("hello");
+		CustomizationOptionPanel customizationOptionsPanel = new CustomizationOptionPanel();
+		if (getFoodItemList().getFoodItemName().equals(FoodItemList.PIZZA.name())) {
+			System.out.println("price of the Pizza item is " + getFoodItemList().getFoodItemName());
 //            customizationOptionsPanel = new PizzaCustomization(customizationOptions);
-            customizationOptionsPanel = new PizzaCustomization();
-            customizationOptionsPanel.setValueChanged(this);
+			customizationOptionsPanel = new PizzaCustomization();
+			customizationOptionsPanel.setValueChanged(this);
 
-        }
+		}
 
-        if (getFoodItemList().getFoodItemName().equals(FoodItemList.PASTA.name())) {
-            System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-            customizationOptionsPanel = new PastaCustomization();
-            customizationOptionsPanel.setValueChanged(this);
+		if (getFoodItemList().getFoodItemName().equals(FoodItemList.PASTA.name())) {
+			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
+			customizationOptionsPanel = new PastaCustomization();
+			customizationOptionsPanel.setValueChanged(this);
 
-        }
+		}
 
-        if (getFoodItemList().getFoodItemName().equals(FoodItemList.SALAD.name())) {
-            System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-            customizationOptionsPanel = new SaladCustomization();
-        }
+		if (getFoodItemList().getFoodItemName().equals(FoodItemList.SALAD.name())) {
+			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
+			customizationOptionsPanel = new SaladCustomization();
+			customizationOptionsPanel.setValueChanged(this);
+		}
 
-        if (getFoodItemList().getFoodItemName().equals(FoodItemList.BURGER.name())) {
-            customizationOptionsPanel = new BurgerCustomization();
+		if (getFoodItemList().getFoodItemName().equals(FoodItemList.BURGER.name())) {
+			customizationOptionsPanel = new BurgerCustomization();
+			customizationOptionsPanel.setValueChanged(this);
 
-        }
+		}
 
-        if (getFoodItemList().getFoodItemName().equals(FoodItemList.ICE_CREAM.name())) {
-            System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
-            customizationOptionsPanel = new IceCreamCustomization();
-        }
+		if (getFoodItemList().getFoodItemName().equals(FoodItemList.ICE_CREAM.name())) {
+			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
+			customizationOptionsPanel = new IceCreamCustomization();
+		}
 
-        customizationOptionsPanel.setVisible(true);
-        jScrollPane = new JScrollPane(customizationOptionsPanel);
-        jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        customizationPanel.add(jScrollPane, BorderLayout.CENTER);
-        jScrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        customizationPanel.revalidate();
-        customizationPanel.repaint();
-        this.revalidate();
-        this.repaint();
+		customizationOptionsPanel.setVisible(true);
+		jScrollPane = new JScrollPane(customizationOptionsPanel);
+		jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		customizationPanel.add(jScrollPane, BorderLayout.CENTER);
+		jScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+		customizationPanel.revalidate();
+		customizationPanel.repaint();
+		this.revalidate();
+		this.repaint();
 
 // Repeat for other food items
-    }
+	}
 
-    /**
-     * This method is called from within the constructor to initialize the
-     * form. WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+	/**
+	 * This method is called from within the constructor to initialize the
+	 * form. WARNING: Do NOT modify this code. The content of this method is
+	 * always regenerated by the Form Editor.
+	 */
+	@SuppressWarnings("unchecked")
         // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
         private void initComponents() {
 
@@ -186,47 +185,47 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
                 pack();
         }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String args[]) {
+		/* Set the Nimbus look and feel */
+		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+		 */
+		try {
+			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (ClassNotFoundException ex) {
+			java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (InstantiationException ex) {
+			java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (IllegalAccessException ex) {
+			java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+			java.util.logging.Logger.getLogger(Customize.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		}
+		//</editor-fold>
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Customize dialog = new Customize(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+		/* Create and display the dialog */
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				Customize dialog = new Customize(new javax.swing.JFrame(), true);
+				dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+					@Override
+					public void windowClosing(java.awt.event.WindowEvent e) {
+						System.exit(0);
+					}
+				});
+				dialog.setVisible(true);
+			}
+		});
+	}
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private javax.swing.JPanel customizationPanel;
