@@ -4,13 +4,11 @@
  */
 package com.rag.syzygy.domains;
 
-import com.rag.syzygy.views.customization_options.CustomizationOptions;
-
 /**
  *
  * @author ACER
  */
-public class PizzaCustomizedOptions extends CustomizationOptions {
+public class CustomizedPizzaOptions extends CustomizationOptions {
 
 	private String crust;
 	private String size;
@@ -20,10 +18,10 @@ public class PizzaCustomizedOptions extends CustomizationOptions {
 	private String cheeseOptions;
 	private String description;
 
-	public PizzaCustomizedOptions() {
+	public CustomizedPizzaOptions() {
 	}
 
-	public PizzaCustomizedOptions(String Crust, String size, String toppings1, String toppings2, int slices, String cheeseOptions, String description) {
+	public CustomizedPizzaOptions(String Crust, String size, String toppings1, String toppings2, int slices, String cheeseOptions, String description) {
 		this.crust = Crust;
 		this.size = size;
 		this.toppings1 = toppings1;

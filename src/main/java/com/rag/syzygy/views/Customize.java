@@ -4,7 +4,10 @@
  */
 package com.rag.syzygy.views;
 
-import com.rag.syzygy.domains.PizzaCustomizedOptions;
+import com.rag.syzygy.domains.CustomizationOptions;
+import com.rag.syzygy.domains.CustomizedPastaOptions;
+import com.rag.syzygy.domains.CustomizedPizzaOptions;
+import com.rag.syzygy.listeners.ValueChangeListener;
 import com.rag.syzygy.util.FoodItemList;
 import com.rag.syzygy.views.customization_options.*;
 
@@ -40,7 +43,10 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
     @Override
     public void valueChanged(CustomizationOptions customizationOptions) {
         this.customizationOptions = customizationOptions;
-        if(this.customizationOptions instanceof PizzaCustomizedOptions pizzaCustomizedOptions){
+        if(this.customizationOptions instanceof CustomizedPizzaOptions customizedPizzaOptions){
+            this.customizationOptionValueChangedListener.valueChanged(customizationOptions);
+        }
+        if(this.customizationOptions instanceof CustomizedPastaOptions customizedPastaOptions){
             this.customizationOptionValueChangedListener.valueChanged(customizationOptions);
         }
     }
@@ -71,7 +77,8 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
         CustomizationOptionPanel customizationOptionsPanel = new CustomizationOptionPanel();
         if (getFoodItemList().getFoodItemName().equals(FoodItemList.PIZZA.name())) {
             System.out.println("price of the Pizza item is " + getFoodItemList().getFoodItemName());
-            customizationOptionsPanel = new PizzaCustomization(customizationOptions);
+//            customizationOptionsPanel = new PizzaCustomization(customizationOptions);
+            customizationOptionsPanel = new PizzaCustomization();
             customizationOptionsPanel.setValueChanged(this);
 
         }
@@ -79,6 +86,7 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
         if (getFoodItemList().getFoodItemName().equals(FoodItemList.PASTA.name())) {
             System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
             customizationOptionsPanel = new PastaCustomization();
+            customizationOptionsPanel.setValueChanged(this);
 
         }
 
@@ -141,7 +149,7 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
                 );
                 customizationPanelLayout.setVerticalGroup(
                         customizationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 267, Short.MAX_VALUE)
+                        .addGap(0, 357, Short.MAX_VALUE)
                 );
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -171,8 +179,8 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
                                         .addComponent(jLabel2)
                                         .addComponent(foodItemNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(customizationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
+                                .addComponent(customizationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
 
                 pack();

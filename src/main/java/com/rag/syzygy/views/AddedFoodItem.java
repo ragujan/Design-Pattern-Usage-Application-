@@ -4,10 +4,12 @@
  */
 package com.rag.syzygy.views;
 
+import com.rag.syzygy.domains.CustomizedPastaOptions;
 import com.rag.syzygy.util.FoodItemList;
 import com.rag.syzygy.views.customization_options.CustomizationLabel;
-import com.rag.syzygy.views.customization_options.CustomizationOptions;
-import com.rag.syzygy.domains.PizzaCustomizedOptions;
+import com.rag.syzygy.domains.CustomizationOptions;
+import com.rag.syzygy.domains.CustomizedPizzaOptions;
+import com.rag.syzygy.listeners.ValueChangeListener;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -42,6 +44,7 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
             foodQtyLabel.setText(String.valueOf(qty));
         }
 
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
     }
 
     @Override
@@ -50,17 +53,19 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
 
     @Override
     public void valueChanged(CustomizationOptions customizationOptions) {
-        if (customizationOptions instanceof PizzaCustomizedOptions pizzaCustomizedOptions) {
+            orderScrollPaneJPanel.removeAll();
+        if (customizationOptions instanceof CustomizedPizzaOptions customizedPizzaOptions) {
 
-            JPanel crust = new CustomizationLabel("crust", pizzaCustomizedOptions.getCrust());
-            JPanel size = new CustomizationLabel("size", pizzaCustomizedOptions.getSize());
-            JPanel toppings1 = new CustomizationLabel("topping1", pizzaCustomizedOptions.getToppings1());
-            JPanel toppings2 = new CustomizationLabel("topping1", pizzaCustomizedOptions.getToppings2());
-            JPanel slices = new CustomizationLabel("slices", Integer.toString(pizzaCustomizedOptions.getSlices()));
-            JPanel cheeseOptions = new CustomizationLabel("cheese options",pizzaCustomizedOptions.getCheeseOptions());
-            JPanel description = new CustomizationLabel("description",pizzaCustomizedOptions.getDescription());
+//            orderScrollPaneJPanel.removeAll();
+            JPanel crust = new CustomizationLabel("crust", customizedPizzaOptions.getCrust());
+            JPanel size = new CustomizationLabel("size", customizedPizzaOptions.getSize());
+            JPanel toppings1 = new CustomizationLabel("topping1", customizedPizzaOptions.getToppings1());
+            JPanel toppings2 = new CustomizationLabel("topping1", customizedPizzaOptions.getToppings2());
+            JPanel slices = new CustomizationLabel("slices", Integer.toString(customizedPizzaOptions.getSlices()));
+            JPanel cheeseOptions = new CustomizationLabel("cheese options", customizedPizzaOptions.getCheeseOptions());
+            JPanel description = new CustomizationLabel("description", customizedPizzaOptions.getDescription());
 
-            orderScrollPaneJPanel.setLayout(new GridLayout(7,1));
+            orderScrollPaneJPanel.setLayout(new GridLayout(7, 1));
             orderScrollPaneJPanel.add(crust);
             orderScrollPaneJPanel.add(size);
             orderScrollPaneJPanel.add(toppings1);
@@ -68,11 +73,28 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
             orderScrollPaneJPanel.add(slices);
             orderScrollPaneJPanel.add(cheeseOptions);
             orderScrollPaneJPanel.add(description);
-	    jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
-
-
+	    System.out.println("hey");
 
         }
+
+        if (customizationOptions instanceof CustomizedPastaOptions customizedPastaOptions) {
+            orderScrollPaneJPanel.setLayout(new GridLayout(6, 1));
+
+            JPanel typePanel = new CustomizationLabel("type", customizedPastaOptions.getType());
+            JPanel saucePanel = new CustomizationLabel("sauce", customizedPastaOptions.getSauce());
+            JPanel cheeseToppingsPanel = new CustomizationLabel("cheese toppings", customizedPastaOptions.getCheeseToppings());
+            JPanel proteinAdditionPanel = new CustomizationLabel("protein addition", customizedPastaOptions.getProteinAddition());
+            JPanel vegetableOptionPanel = new CustomizationLabel("vegetable option", customizedPastaOptions.getVegetableOption());
+            JPanel specialNotesPanel = new CustomizationLabel("special notes", customizedPastaOptions.getSpecialNotes());
+
+            orderScrollPaneJPanel.add(typePanel);
+            orderScrollPaneJPanel.add(saucePanel);
+            orderScrollPaneJPanel.add(cheeseToppingsPanel);
+            orderScrollPaneJPanel.add(proteinAdditionPanel);
+            orderScrollPaneJPanel.add(vegetableOptionPanel);
+            orderScrollPaneJPanel.add(specialNotesPanel);
+        }
+
     }
 
     public double retriveFoodItemPrice(String name) {
@@ -186,7 +208,7 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
                 );
                 orderScrollPaneJPanelLayout.setVerticalGroup(
                         orderScrollPaneJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 181, Short.MAX_VALUE)
+                        .addGap(0, 207, Short.MAX_VALUE)
                 );
 
                 jScrollPane1.setViewportView(orderScrollPaneJPanel);
@@ -244,8 +266,8 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                                .addContainerGap())
                 );
         }// </editor-fold>//GEN-END:initComponents
 

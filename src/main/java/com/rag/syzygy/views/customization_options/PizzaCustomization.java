@@ -4,7 +4,8 @@
  */
 package com.rag.syzygy.views.customization_options;
 
-import com.rag.syzygy.domains.PizzaCustomizedOptions;
+import com.rag.syzygy.domains.CustomizationOptions;
+import com.rag.syzygy.domains.CustomizedPizzaOptions;
 import com.rag.syzygy.util.PizzaTopping1;
 import com.rag.syzygy.util.PizzaTopping2;
 
@@ -23,7 +24,7 @@ public class PizzaCustomization extends CustomizationOptionPanel {
 	 * Creates new form PizzaCustomization
 	 */
 	ButtonGroup crustGroup;
-	CustomizationOptions customizationOptions;
+//	CustomizationOptions customizationOptions;
 
 	public PizzaCustomization() {
 		initComponents();
@@ -38,7 +39,7 @@ public class PizzaCustomization extends CustomizationOptionPanel {
 
 	public PizzaCustomization(CustomizationOptions customizationOptions) {
 		this();
-		this.customizationOptions = customizationOptions;
+//		this.customizationOptions = customizationOptions;
 		System.out.println("hey");
 	}
 
@@ -272,8 +273,8 @@ public class PizzaCustomization extends CustomizationOptionPanel {
 	    String specialNote = this.extraNotes.getText();
 	    String cheeseOptions = this.cheeseOptions.getSelectedItem().toString();
 
-	    this.customizationOptions = new PizzaCustomizedOptions(crustType, size, topping1, topping2, slices, cheeseOptions, specialNote);
-	    valueChanged.valueChanged(this.customizationOptions);
+	   CustomizationOptions customizationOptions = new CustomizedPizzaOptions(crustType, size, topping1, topping2, slices, cheeseOptions, specialNote);
+	    valueChanged.valueChanged(customizationOptions);
 	    JComponent comp = (JComponent) evt.getSource();
 	    Window win = SwingUtilities.getWindowAncestor(comp);
 	    win.dispose();

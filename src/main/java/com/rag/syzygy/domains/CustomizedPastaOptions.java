@@ -4,25 +4,23 @@
  */
 package com.rag.syzygy.domains;
 
-import com.rag.syzygy.views.customization_options.CustomizationOptions;
-
 /**
  *
  * @author ACER
  */
-public class PastaCustomizedOptions extends CustomizationOptions {
+public class CustomizedPastaOptions extends CustomizationOptions {
 
 	private String type;
 	private String sauce;
 	private String cheeseToppings;
 	private String proteinAddition;
-	private int vegetableOption;
+	private String vegetableOption;
 	private String specialNotes;
 
-	public PastaCustomizedOptions() {
+	public CustomizedPastaOptions() {
 	}
 
-	public PastaCustomizedOptions(String type, String sauce, String cheeseToppings, String proteinAddition, int vegetableOption, String specialNotes) {
+	public CustomizedPastaOptions(String type, String sauce, String cheeseToppings, String proteinAddition, String vegetableOption, String specialNotes) {
 		this.type = type;
 		this.sauce = sauce;
 		this.cheeseToppings = cheeseToppings;
@@ -63,11 +61,11 @@ public class PastaCustomizedOptions extends CustomizationOptions {
 		this.proteinAddition = proteinAddition;
 	}
 
-	public int getVegetableOption() {
+	public String getVegetableOption() {
 		return vegetableOption;
 	}
 
-	public void setVegetableOption(int vegetableOption) {
+	public void setVegetableOption(String vegetableOption) {
 		this.vegetableOption = vegetableOption;
 	}
 
