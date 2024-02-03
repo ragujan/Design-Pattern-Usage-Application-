@@ -149,6 +149,7 @@ public class SaladCustomization extends CustomizationOptionPanel {
 
 		this.customizationOptions = new CustomizedSaladOptions(tortillaType, proteinOptions, toppings, vegetables, specialNotes);
                 this.valueChanged.valueChanged(this.customizationOptions);
+
 		JComponent comp = (JComponent) evt.getSource();
 		Window win = SwingUtilities.getWindowAncestor(comp);
 		win.dispose();

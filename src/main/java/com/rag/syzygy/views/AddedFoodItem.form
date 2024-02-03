@@ -52,7 +52,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel1" min="-2" pref="53" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="foodNameLable" min="-2" pref="397" max="-2" attributes="0"/>
+                              <Component id="foodNameLabel" min="-2" pref="397" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -72,7 +72,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="foodNameLable" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="foodNameLabel" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -118,7 +118,7 @@
         <Property name="text" type="java.lang.String" value="Price"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="foodNameLable">
+    <Component class="javax.swing.JLabel" name="foodNameLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="sansserif" size="18" style="1"/>

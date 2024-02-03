@@ -27,6 +27,7 @@ public class CustomizedPastaOptions extends CustomizedOptions {
 		this.proteinAddition = proteinAddition;
 		this.vegetableOption = vegetableOption;
 		this.specialNotes = specialNotes;
+
 	}
 
 	public String getType() {
