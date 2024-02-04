@@ -37,7 +37,7 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
         initComponents();
         this.parentPanel = parentPanel;
         this.foodItemName = foodItemName;
-        this.price = retriveFoodItemPrice(foodItemName);
+        this.price = retrieveFoodItemPrice(foodItemName);
 
         this.qty = qty;
         if (foodItemName != null) {
@@ -62,10 +62,8 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
         this.customizedOptions = customizedOptions;
         orderScrollPaneJPanel.removeAll();
 
+        List<CustomizationLabel> panelList = new LinkedList<>();
         if (customizedOptions instanceof CustomizedPizzaOptions customizedPizzaOptions) {
-
-            List<CustomizationLabel> panelList = new LinkedList<>();
-
             panelList.add(new CustomizationLabel("crust", customizedPizzaOptions.getCrust()));
             panelList.add(new CustomizationLabel("size", customizedPizzaOptions.getSize()));
             panelList.add(new CustomizationLabel("topping1", customizedPizzaOptions.getToppings1()));
@@ -73,18 +71,8 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
             panelList.add(new CustomizationLabel("slices", Integer.toString(customizedPizzaOptions.getSlices())));
             panelList.add(new CustomizationLabel("cheese options", customizedPizzaOptions.getCheeseOptions()));
             panelList.add(new CustomizationLabel("description", customizedPizzaOptions.getDescription()));
-
-            orderScrollPaneJPanel.setLayout(new GridLayout(panelList.size(), 1));
-            for (CustomizationLabel panel : panelList) {
-                orderScrollPaneJPanel.add(panel);
-                customizedOptions.getKeysValue().put(panel.getjLabel1().getText(), panel.getjLabel2().getText());
-            }
         }
         if (customizedOptions instanceof CustomizedPastaOptions customizedPastaOptions) {
-            orderScrollPaneJPanel.setLayout(new GridLayout(6, 1));
-
-            List<CustomizationLabel> panelList = new LinkedList<>();
-
             panelList.add(new CustomizationLabel("type", customizedPastaOptions.getType()));
             panelList.add(new CustomizationLabel("sauce", customizedPastaOptions.getSauce()));
             panelList.add(new CustomizationLabel("cheese toppings", customizedPastaOptions.getCheeseToppings()));
@@ -92,15 +80,10 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
             panelList.add(new CustomizationLabel("vegetable option", customizedPastaOptions.getVegetableOption()));
             panelList.add(new CustomizationLabel("special notes", customizedPastaOptions.getSpecialNotes()));
 
-            for (CustomizationLabel panel : panelList) {
-                orderScrollPaneJPanel.add(panel);
-                customizedOptions.getKeysValue().put(panel.getjLabel1().getText(), panel.getjLabel2().getText());
-            }
 
         }
 
         if (customizedOptions instanceof CustomizedSaladOptions customizedSaladOptions) {
-            List<CustomizationLabel> panelList = new LinkedList<>();
 
             panelList.add(new CustomizationLabel("tortilla type", customizedSaladOptions.getTortillaType()));
             panelList.add(new CustomizationLabel("protein options", customizedSaladOptions.getProteinOptions()));
@@ -108,18 +91,10 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
             panelList.add(new CustomizationLabel("vegetables", customizedSaladOptions.getVegetables()));
             panelList.add(new CustomizationLabel("special notes", customizedSaladOptions.getSpecialNotes()));
 
-            orderScrollPaneJPanel.setLayout(new GridLayout(panelList.size(), 1));
-
-            for (CustomizationLabel panel : panelList) {
-                orderScrollPaneJPanel.add(panel);
-                customizedOptions.getKeysValue().put(panel.getjLabel1().getText(), panel.getjLabel2().getText());
-            }
         }
 
 
         if (customizedOptions instanceof CustomizedBurgerOptions customizedBurgerOptions) {
-            List<CustomizationLabel> panelList = new LinkedList<>();
-
             panelList.add(new CustomizationLabel("cheese options", customizedBurgerOptions.getCheeseOptions()));
             panelList.add(new CustomizationLabel("heat level", customizedBurgerOptions.getHeatLevel()));
             panelList.add(new CustomizationLabel("special ingredients", customizedBurgerOptions.getSpecialIngredients()));
@@ -127,17 +102,9 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
             panelList.add(new CustomizationLabel("vegetable 2", customizedBurgerOptions.getVegetable2()));
             panelList.add(new CustomizationLabel("special note", customizedBurgerOptions.getSpecialNote()));
 
-            orderScrollPaneJPanel.setLayout(new GridLayout(panelList.size(), 1));
-
-            for (CustomizationLabel panel : panelList) {
-                orderScrollPaneJPanel.add(panel);
-                customizedOptions.getKeysValue().put(panel.getjLabel1().getText(), panel.getjLabel2().getText());
-            }
         }
 
         if (customizedOptions instanceof CustomizedIceCreamOptions customizedIceCreamOptions) {
-            List<CustomizationLabel> panelList = new LinkedList<>();
-
             panelList.add(new CustomizationLabel("base flavour", customizedIceCreamOptions.getBaseFlavour()));
             panelList.add(new CustomizationLabel("sauces", customizedIceCreamOptions.getSauces()));
             panelList.add(new CustomizationLabel("toppings", customizedIceCreamOptions.getToppings()));
@@ -145,18 +112,16 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
             panelList.add(new CustomizationLabel("extras", customizedIceCreamOptions.getExtras()));
             panelList.add(new CustomizationLabel("special note", customizedIceCreamOptions.getSpecialNote()));
 
-            orderScrollPaneJPanel.setLayout(new GridLayout(panelList.size(), 1));
-
-            for (CustomizationLabel panel : panelList) {
-                orderScrollPaneJPanel.add(panel);
-                customizedOptions.getKeysValue().put(panel.getjLabel1().getText(), panel.getjLabel2().getText());
-            }
         }
-
+        orderScrollPaneJPanel.setLayout(new GridLayout(panelList.size(), 1));
+        for (CustomizationLabel panel : panelList) {
+            orderScrollPaneJPanel.add(panel);
+            customizedOptions.getKeysValue().put(panel.getjLabel1().getText(), panel.getjLabel2().getText());
+        }
 
     }
 
-    public double retriveFoodItemPrice(String name) {
+    public double retrieveFoodItemPrice(String name) {
         try {
             FoodItemList foodItem = FoodItemList.valueOf(name.toUpperCase().replace(" ", "_"));
             return foodItem.getPrice();
