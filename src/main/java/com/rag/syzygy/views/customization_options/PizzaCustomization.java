@@ -6,6 +6,9 @@ package com.rag.syzygy.views.customization_options;
 
 import com.rag.syzygy.domains.customized_food_domains.CustomizedOptions;
 import com.rag.syzygy.domains.customized_food_domains.CustomizedPizzaOptions;
+import com.rag.syzygy.factory.CustomizedOptionsFactory;
+import com.rag.syzygy.factory.TestFactory;
+import com.rag.syzygy.util.FoodItemList;
 import com.rag.syzygy.util.PizzaTopping1;
 import com.rag.syzygy.util.PizzaTopping2;
 
@@ -34,13 +37,11 @@ public class PizzaCustomization extends CustomizationOptionPanel {
 		crustGroup.add(panButton);
 		crustGroup.add(handTossedButton);
 		loadTopping1Options();
-
 	}
 
 	public PizzaCustomization(CustomizedOptions customizationOptions) {
 		this();
 //		this.customizationOptions = customizationOptions;
-		System.out.println("hey");
 	}
 
 	private String[] getEnumNames(Enum<?>[] values) {
@@ -59,11 +60,9 @@ public class PizzaCustomization extends CustomizationOptionPanel {
 		String[] names1 = getEnumNames(PizzaTopping1.values());
 		String[] names2 = getEnumNames(PizzaTopping2.values());
 		for (String name : names1) {
-			System.out.println("name is " + name);
 			topping1.addItem(name);
 		}
 		for (String name : names2) {
-			System.out.println("name is " + name);
 			topping2.addItem(name);
 		}
 
@@ -273,8 +272,21 @@ public class PizzaCustomization extends CustomizationOptionPanel {
 	    String specialNote = this.extraNotes.getText();
 	    String cheeseOptions = this.cheeseOptions.getSelectedItem().toString();
 
-	   CustomizedOptions customizationOptions = new CustomizedPizzaOptions(crustType, size, topping1, topping2, slices, cheeseOptions, specialNote);
+	    customizationOptions = CustomizedOptionsFactory.createCustomizedOptions(FoodItemList.PIZZA.name());
+
+	    CustomizedPizzaOptions pizzaOptions = (CustomizedPizzaOptions) customizationOptions;
+
+	    pizzaOptions.setCrust(crustType);
+	    pizzaOptions.setSize(size);
+	    pizzaOptions.setToppings1(topping1);
+	    pizzaOptions.setToppings2(topping2);
+	    pizzaOptions.setSlices(slices);
+	    pizzaOptions.setCheeseOptions(cheeseOptions);
+	    pizzaOptions.setDescription(specialNote);
+
+	    customizationOptions = pizzaOptions;
 	    valueChanged.valueChanged(customizationOptions);
+
 	    JComponent comp = (JComponent) evt.getSource();
 	    Window win = SwingUtilities.getWindowAncestor(comp);
 	    win.dispose();

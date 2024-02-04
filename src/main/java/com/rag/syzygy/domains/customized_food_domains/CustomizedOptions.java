@@ -21,4 +21,7 @@ public class CustomizedOptions {
     CustomizedOptions(){
         keysValue = new HashMap<>();
     }
+    public void setValuesForOptions(){
+//        
+    }
 }

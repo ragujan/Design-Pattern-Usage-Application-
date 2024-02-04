@@ -7,6 +7,9 @@ public class CustomizedSaladOptions extends CustomizedOptions{
     private String vegetables;
     private String specialNotes;
 
+    public CustomizedSaladOptions() {
+    }
+
     public CustomizedSaladOptions(String tortillaType, String proteinOptions, String toppings, String vegetables, String specialNotes) {
         this.tortillaType = tortillaType;
         this.proteinOptions = proteinOptions;

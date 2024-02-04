@@ -7,6 +7,8 @@ package com.rag.syzygy.views;
 import com.rag.syzygy.dao.AddedFoodItemDAO;
 import com.rag.syzygy.domains.Customer;
 import com.rag.syzygy.domains.CustomerOrder;
+import com.rag.syzygy.factory.CustomizedOptionsFactory;
+import com.rag.syzygy.factory.TestFactory;
 import com.rag.syzygy.util.FoodItemList;
 
 import java.awt.BorderLayout;
@@ -22,15 +24,15 @@ import javax.swing.JScrollPane;
  * @author ACER
  */
 public class OrderFrame extends javax.swing.JFrame {
-
+	
 	private JScrollPane scrollPane;
 	private JPanel myJPanel;
 	private Customer customer;
-
+	
 	public Customer getCustomer() {
 		return customer;
 	}
-
+	
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
@@ -41,7 +43,7 @@ public class OrderFrame extends javax.swing.JFrame {
 	public OrderFrame() {
 		initComponents();
 		myJPanel = new JPanel();
-
+		
 		myJPanel.setLayout(new BoxLayout(myJPanel, BoxLayout.Y_AXIS));
 		myJPanel.setBackground(Color.YELLOW);
 		scrollPane = new JScrollPane(myJPanel);
@@ -55,50 +57,42 @@ public class OrderFrame extends javax.swing.JFrame {
 		this.revalidate();
 		loadFoodItems();
 		this.setLocationRelativeTo(null);
-
+		
 		this.customer = new Customer();
+		System.out.println("static value is " + TestFactory.myStaticValue);
+		TestFactory.myStaticValue = "Changed";
 	}
-
+	
 	public void setCustomerLabels() {
-		System.out.println("c name is "+this.customer.getName());
-		System.out.println("c name is "+this.customer.getContact());
+		System.out.println("c name is " + this.customer.getName());
+		System.out.println("c name is " + this.customer.getContact());
 		customerNameLabel.setText(this.customer.getName());
 		customerContactLabel.setText(this.customer.getContact());
-
+		
 	}
-
+	
 	public CustomerOrder createOrder() {
 		List<AddedFoodItemDAO> addedFoodItemDAOS = new LinkedList<>();
 		for (Component component : myJPanel.getComponents()) {
-
+			
 			if (component instanceof AddedFoodItem) {
 				AddedFoodItem foodItem = (AddedFoodItem) component;
 				if (foodItem.getCustomizedOptions() == null) {
 					return null;
 				}
 				addedFoodItemDAOS.add(new AddedFoodItemDAO(
-						foodItem.getFoodItemName(),foodItem.getPrice(),foodItem.getQty(),foodItem.getCustomizedOptions()));
-
-				System.out.println("food item name is " + foodItem.getFoodItemName());
-
-
-//				Map<String, Object> map = foodItem.getCustomizedOptions().getKeysValue();
-//				for (Map.Entry<String, Object> entry : map.entrySet()) {
-//					System.out.println("option is " + entry.getKey() + " value is " + entry.getValue());
-//				}
-//				System.out.println("++++++++---------+++++++++");
-
-
+					foodItem.getFoodItemName(), foodItem.getPrice(), foodItem.getQty(), foodItem.getCustomizedOptions()));
+				
 			}
 		}
-
+		
 		return new CustomerOrder.Builder().orders(addedFoodItemDAOS).customer(customer).build();
 	}
-
+	
 	private void loadFoodItems() {
 		FoodItemList[] foodItemList = FoodItemList.values();
 		List<String> names = new LinkedList<>();
-
+		
 		for (FoodItemList item : foodItemList) {
 			names.add(item.name());
 		}
@@ -106,7 +100,7 @@ public class OrderFrame extends javax.swing.JFrame {
 		for (int j = 0; j < names.size(); j++) {
 			jComboBox1.addItem(names.get(j));
 		}
-
+		
 	}
 
 	/**
@@ -131,6 +125,7 @@ public class OrderFrame extends javax.swing.JFrame {
                 jButton2 = new javax.swing.JButton();
                 jLabel5 = new javax.swing.JLabel();
                 customerContactLabel = new javax.swing.JLabel();
+                jButton4 = new javax.swing.JButton();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -210,25 +205,32 @@ public class OrderFrame extends javax.swing.JFrame {
 
                 jLabel5.setText("Contact");
 
+                jButton4.setText("jButton4");
+                jButton4.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton4ActionPerformed(evt);
+                        }
+                });
+
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
                 layout.setHorizontalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addContainerGap()
-                                                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                                .addContainerGap()
+                                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGap(26, 26, 26)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(customerContactLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                        .addComponent(customerContactLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(jButton4)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
                                 .addContainerGap())
                 );
@@ -243,7 +245,9 @@ public class OrderFrame extends javax.swing.JFrame {
                                                 .addComponent(jLabel5)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(customerContactLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jButton4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap())
@@ -269,10 +273,16 @@ public class OrderFrame extends javax.swing.JFrame {
 		dialog.setVisible(true);
         }//GEN-LAST:event_jButton3ActionPerformed
 
+        private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+		// TODO add your handling code here:
+//		System.out.println("test value again in main frame " + TestFactory.myStaticValue);
+//		System.out.println("cached customized option is " + CustomizedOptionsFactory.createCustomizedOptions(FoodItemList.PIZZA.name()));
+        }//GEN-LAST:event_jButton4ActionPerformed
+	
 	public void addFoodItem() {
 		String foodItemName = jComboBox1.getSelectedItem().toString();
 		String qty = jComboBox2.getSelectedItem().toString();
-
+		
 		if (panelIsUnique(foodItemName)) {
 			myJPanel.add(new AddedFoodItem(foodItemName, Integer.parseInt(qty), myJPanel));
 			myJPanel.revalidate();
@@ -280,18 +290,18 @@ public class OrderFrame extends javax.swing.JFrame {
 		} else {
 			removeFoodItemPanel(foodItemName);
 			myJPanel.add(new AddedFoodItem(foodItemName, Integer.parseInt(qty), myJPanel));
-
+			
 		}
-
+		
 	}
-
+	
 	public void removeFoodItemPanel(String foodName) {
 		if (myJPanel.getComponents().length == 0) {
 			System.out.println("length is " + 0);
 		}
 		AddedFoodItem removablePanel = null;
 		for (Component component : myJPanel.getComponents()) {
-
+			
 			if (component instanceof AddedFoodItem) {
 				AddedFoodItem foodItem = (AddedFoodItem) component;
 				if (foodItem.getFoodItemName().equals(foodName)) {
@@ -304,14 +314,14 @@ public class OrderFrame extends javax.swing.JFrame {
 			myJPanel.remove(removablePanel);
 		}
 	}
-
+	
 	public boolean panelIsUnique(String foodName) {
 		boolean panelIsUnique = true;
 		if (myJPanel.getComponents().length == 0) {
 			System.out.println("length is " + 0);
 		}
 		for (Component component : myJPanel.getComponents()) {
-
+			
 			if (component instanceof AddedFoodItem) {
 				AddedFoodItem foodItem = (AddedFoodItem) component;
 				if (foodItem.getFoodItemName().equals(foodName)) {
@@ -364,6 +374,7 @@ public class OrderFrame extends javax.swing.JFrame {
         private javax.swing.JButton jButton1;
         private javax.swing.JButton jButton2;
         private javax.swing.JButton jButton3;
+        private javax.swing.JButton jButton4;
         private javax.swing.JComboBox<String> jComboBox1;
         private javax.swing.JComboBox<String> jComboBox2;
         private javax.swing.JLabel jLabel1;

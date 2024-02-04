@@ -8,6 +8,9 @@ public class CustomizedIceCreamOptions extends CustomizedOptions{
     private String extras;
     private String specialNote;
 
+    public CustomizedIceCreamOptions() {
+    }
+
     public CustomizedIceCreamOptions(String baseFlavour, String sauces, String toppings, String mixIns, String extras, String specialNote) {
         this.baseFlavour = baseFlavour;
         this.sauces = sauces;

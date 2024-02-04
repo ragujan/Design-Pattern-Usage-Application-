@@ -5,6 +5,7 @@
 package com.rag.syzygy.views;
 
 import com.rag.syzygy.domains.customized_food_domains.CustomizedOptions;
+import com.rag.syzygy.factory.CustomizedOptionsFactory;
 import com.rag.syzygy.listeners.ValueChangeListener;
 import com.rag.syzygy.util.FoodItemList;
 import com.rag.syzygy.views.customization_options.*;
@@ -27,6 +28,11 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
 //    private AddedFoodItem addedFoodItem;
 	private ValueChangeListener listener;
 	private CustomizationOptionValueChangedListener customizationOptionValueChangedListener;
+	private static CustomizedOptionsFactory factory;
+
+	public static CustomizedOptionsFactory getFactory(){
+              return factory;
+	}
 
 	public void setValueChangeListener(ValueChangeListener listener) {
 		this.listener = listener;
@@ -71,19 +77,16 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
 		this.listener.valueChanged("hello");
 		CustomizationOptionPanel customizationOptionsPanel = new CustomizationOptionPanel();
 		if (getFoodItemList().getFoodItemName().equals(FoodItemList.PIZZA.name())) {
-			System.out.println("price of the Pizza item is " + getFoodItemList().getFoodItemName());
 //            customizationOptionsPanel = new PizzaCustomization(customizationOptions);
 			customizationOptionsPanel = new PizzaCustomization();
 		}
 
 		if (getFoodItemList().getFoodItemName().equals(FoodItemList.PASTA.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
 			customizationOptionsPanel = new PastaCustomization();
 
 		}
 
 		if (getFoodItemList().getFoodItemName().equals(FoodItemList.SALAD.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
 			customizationOptionsPanel = new SaladCustomization();
 		}
 
@@ -93,7 +96,6 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
 		}
 
 		if (getFoodItemList().getFoodItemName().equals(FoodItemList.ICE_CREAM.name())) {
-			System.out.println("price of the food item is " + getFoodItemList().getFoodItemName());
 			customizationOptionsPanel = new IceCreamCustomization();
 		}
 

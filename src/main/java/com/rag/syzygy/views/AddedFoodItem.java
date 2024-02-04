@@ -5,6 +5,7 @@
 package com.rag.syzygy.views;
 
 import com.rag.syzygy.domains.customized_food_domains.*;
+import com.rag.syzygy.factory.TestFactory;
 import com.rag.syzygy.util.FoodItemList;
 import com.rag.syzygy.views.customization_options.CustomizationLabel;
 import com.rag.syzygy.listeners.ValueChangeListener;
@@ -21,153 +22,152 @@ import javax.swing.*;
  */
 public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeListener, CustomizationOptionValueChangedListener {
 
-    private String foodItemName;
-    private double price;
-    private int qty;
-    private JPanel parentPanel;
-    private Customize customize;
-    private CustomizedOptions customizedOptions;
+	private String foodItemName;
+	private double price;
+	private int qty;
+	private JPanel parentPanel;
+	private Customize customize;
+	private CustomizedOptions customizedOptions;
 
-    public CustomizedOptions getCustomizedOptions() {
-        return customizedOptions;
-    }
+	public CustomizedOptions getCustomizedOptions() {
+		return customizedOptions;
+	}
 
+	public AddedFoodItem(String foodItemName, int qty, JPanel parentPanel) {
+		initComponents();
+		this.parentPanel = parentPanel;
+		this.foodItemName = foodItemName;
+		this.price = retrieveFoodItemPrice(foodItemName);
 
-    public AddedFoodItem(String foodItemName, int qty, JPanel parentPanel) {
-        initComponents();
-        this.parentPanel = parentPanel;
-        this.foodItemName = foodItemName;
-        this.price = retrieveFoodItemPrice(foodItemName);
+		this.qty = qty;
+		if (foodItemName != null) {
+			foodNameLabel.setText(foodItemName);
+		}
+		if (price != 0) {
+			foodPriceLabel.setText(Double.toString(price));
+		}
+		if (qty != 0) {
+			foodQtyLabel.setText(String.valueOf(qty));
+		}
 
-        this.qty = qty;
-        if (foodItemName != null) {
-            foodNameLabel.setText(foodItemName);
-        }
-        if (price != 0) {
-            foodPriceLabel.setText(Double.toString(price));
-        }
-        if (qty != 0) {
-            foodQtyLabel.setText(String.valueOf(qty));
-        }
+		jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
+		System.out.println("static value is " + TestFactory.myStaticValue);
+		TestFactory.myStaticValue = "AddedFoodItem";
+	}
 
-        jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
-    }
+	@Override
+	public void valueChanged(String newValue) {
+	}
 
-    @Override
-    public void valueChanged(String newValue) {
-    }
+	@Override
+	public void valueChanged(CustomizedOptions customizedOptions) {
+		this.customizedOptions = customizedOptions;
+		orderScrollPaneJPanel.removeAll();
 
-    @Override
-    public void valueChanged(CustomizedOptions customizedOptions) {
-        this.customizedOptions = customizedOptions;
-        orderScrollPaneJPanel.removeAll();
+		List<CustomizationLabel> panelList = new LinkedList<>();
+		if (customizedOptions instanceof CustomizedPizzaOptions customizedPizzaOptions) {
+			panelList.add(new CustomizationLabel("crust", customizedPizzaOptions.getCrust()));
+			panelList.add(new CustomizationLabel("size", customizedPizzaOptions.getSize()));
+			panelList.add(new CustomizationLabel("topping1", customizedPizzaOptions.getToppings1()));
+			panelList.add(new CustomizationLabel("topping2", customizedPizzaOptions.getToppings2()));
+			panelList.add(new CustomizationLabel("slices", Integer.toString(customizedPizzaOptions.getSlices())));
+			panelList.add(new CustomizationLabel("cheese options", customizedPizzaOptions.getCheeseOptions()));
+			panelList.add(new CustomizationLabel("description", customizedPizzaOptions.getDescription()));
+		}
+		if (customizedOptions instanceof CustomizedPastaOptions customizedPastaOptions) {
+			panelList.add(new CustomizationLabel("type", customizedPastaOptions.getType()));
+			panelList.add(new CustomizationLabel("sauce", customizedPastaOptions.getSauce()));
+			panelList.add(new CustomizationLabel("cheese toppings", customizedPastaOptions.getCheeseToppings()));
+			panelList.add(new CustomizationLabel("protein addition", customizedPastaOptions.getProteinAddition()));
+			panelList.add(new CustomizationLabel("vegetable option", customizedPastaOptions.getVegetableOption()));
+			panelList.add(new CustomizationLabel("special notes", customizedPastaOptions.getSpecialNotes()));
 
-        List<CustomizationLabel> panelList = new LinkedList<>();
-        if (customizedOptions instanceof CustomizedPizzaOptions customizedPizzaOptions) {
-            panelList.add(new CustomizationLabel("crust", customizedPizzaOptions.getCrust()));
-            panelList.add(new CustomizationLabel("size", customizedPizzaOptions.getSize()));
-            panelList.add(new CustomizationLabel("topping1", customizedPizzaOptions.getToppings1()));
-            panelList.add(new CustomizationLabel("topping2", customizedPizzaOptions.getToppings2()));
-            panelList.add(new CustomizationLabel("slices", Integer.toString(customizedPizzaOptions.getSlices())));
-            panelList.add(new CustomizationLabel("cheese options", customizedPizzaOptions.getCheeseOptions()));
-            panelList.add(new CustomizationLabel("description", customizedPizzaOptions.getDescription()));
-        }
-        if (customizedOptions instanceof CustomizedPastaOptions customizedPastaOptions) {
-            panelList.add(new CustomizationLabel("type", customizedPastaOptions.getType()));
-            panelList.add(new CustomizationLabel("sauce", customizedPastaOptions.getSauce()));
-            panelList.add(new CustomizationLabel("cheese toppings", customizedPastaOptions.getCheeseToppings()));
-            panelList.add(new CustomizationLabel("protein addition", customizedPastaOptions.getProteinAddition()));
-            panelList.add(new CustomizationLabel("vegetable option", customizedPastaOptions.getVegetableOption()));
-            panelList.add(new CustomizationLabel("special notes", customizedPastaOptions.getSpecialNotes()));
+		}
 
+		if (customizedOptions instanceof CustomizedSaladOptions customizedSaladOptions) {
 
-        }
+			panelList.add(new CustomizationLabel("tortilla type", customizedSaladOptions.getTortillaType()));
+			panelList.add(new CustomizationLabel("protein options", customizedSaladOptions.getProteinOptions()));
+			panelList.add(new CustomizationLabel("toppings", customizedSaladOptions.getToppings()));
+			panelList.add(new CustomizationLabel("vegetables", customizedSaladOptions.getVegetables()));
+			panelList.add(new CustomizationLabel("special notes", customizedSaladOptions.getSpecialNotes()));
 
-        if (customizedOptions instanceof CustomizedSaladOptions customizedSaladOptions) {
+		}
 
-            panelList.add(new CustomizationLabel("tortilla type", customizedSaladOptions.getTortillaType()));
-            panelList.add(new CustomizationLabel("protein options", customizedSaladOptions.getProteinOptions()));
-            panelList.add(new CustomizationLabel("toppings", customizedSaladOptions.getToppings()));
-            panelList.add(new CustomizationLabel("vegetables", customizedSaladOptions.getVegetables()));
-            panelList.add(new CustomizationLabel("special notes", customizedSaladOptions.getSpecialNotes()));
+		if (customizedOptions instanceof CustomizedBurgerOptions customizedBurgerOptions) {
+			panelList.add(new CustomizationLabel("cheese options", customizedBurgerOptions.getCheeseOptions()));
+			panelList.add(new CustomizationLabel("heat level", customizedBurgerOptions.getHeatLevel()));
+			panelList.add(new CustomizationLabel("special ingredients", customizedBurgerOptions.getSpecialIngredients()));
+			panelList.add(new CustomizationLabel("vegetable 1", customizedBurgerOptions.getVegetable1()));
+			panelList.add(new CustomizationLabel("vegetable 2", customizedBurgerOptions.getVegetable2()));
+			panelList.add(new CustomizationLabel("special note", customizedBurgerOptions.getSpecialNote()));
 
-        }
+		}
 
+		if (customizedOptions instanceof CustomizedIceCreamOptions customizedIceCreamOptions) {
+			panelList.add(new CustomizationLabel("base flavour", customizedIceCreamOptions.getBaseFlavour()));
+			panelList.add(new CustomizationLabel("sauces", customizedIceCreamOptions.getSauces()));
+			panelList.add(new CustomizationLabel("toppings", customizedIceCreamOptions.getToppings()));
+			panelList.add(new CustomizationLabel("mix-ins", customizedIceCreamOptions.getMixIns()));
+			panelList.add(new CustomizationLabel("extras", customizedIceCreamOptions.getExtras()));
+			panelList.add(new CustomizationLabel("special note", customizedIceCreamOptions.getSpecialNote()));
 
-        if (customizedOptions instanceof CustomizedBurgerOptions customizedBurgerOptions) {
-            panelList.add(new CustomizationLabel("cheese options", customizedBurgerOptions.getCheeseOptions()));
-            panelList.add(new CustomizationLabel("heat level", customizedBurgerOptions.getHeatLevel()));
-            panelList.add(new CustomizationLabel("special ingredients", customizedBurgerOptions.getSpecialIngredients()));
-            panelList.add(new CustomizationLabel("vegetable 1", customizedBurgerOptions.getVegetable1()));
-            panelList.add(new CustomizationLabel("vegetable 2", customizedBurgerOptions.getVegetable2()));
-            panelList.add(new CustomizationLabel("special note", customizedBurgerOptions.getSpecialNote()));
+		}
+		orderScrollPaneJPanel.setLayout(new GridLayout(panelList.size(), 1));
+		for (CustomizationLabel panel : panelList) {
+			orderScrollPaneJPanel.add(panel);
+			customizedOptions.getKeysValue().put(panel.getjLabel1().getText(), panel.getjLabel2().getText());
+		}
 
-        }
+	}
 
-        if (customizedOptions instanceof CustomizedIceCreamOptions customizedIceCreamOptions) {
-            panelList.add(new CustomizationLabel("base flavour", customizedIceCreamOptions.getBaseFlavour()));
-            panelList.add(new CustomizationLabel("sauces", customizedIceCreamOptions.getSauces()));
-            panelList.add(new CustomizationLabel("toppings", customizedIceCreamOptions.getToppings()));
-            panelList.add(new CustomizationLabel("mix-ins", customizedIceCreamOptions.getMixIns()));
-            panelList.add(new CustomizationLabel("extras", customizedIceCreamOptions.getExtras()));
-            panelList.add(new CustomizationLabel("special note", customizedIceCreamOptions.getSpecialNote()));
+	public double retrieveFoodItemPrice(String name) {
+		try {
+			FoodItemList foodItem = FoodItemList.valueOf(name.toUpperCase().replace(" ", "_"));
+			return foodItem.getPrice();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
-        }
-        orderScrollPaneJPanel.setLayout(new GridLayout(panelList.size(), 1));
-        for (CustomizationLabel panel : panelList) {
-            orderScrollPaneJPanel.add(panel);
-            customizedOptions.getKeysValue().put(panel.getjLabel1().getText(), panel.getjLabel2().getText());
-        }
+	public String getFoodItemName() {
+		return foodItemName;
+	}
 
-    }
+	public void setFoodItemName(String foodItemName) {
+		this.foodItemName = foodItemName;
+	}
 
-    public double retrieveFoodItemPrice(String name) {
-        try {
-            FoodItemList foodItem = FoodItemList.valueOf(name.toUpperCase().replace(" ", "_"));
-            return foodItem.getPrice();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
+	public Double getPrice() {
+		return price;
+	}
 
-    public String getFoodItemName() {
-        return foodItemName;
-    }
+	public void setPrice(Double price) {
+		this.price = price;
+	}
 
-    public void setFoodItemName(String foodItemName) {
-        this.foodItemName = foodItemName;
-    }
+	public int getQty() {
+		return qty;
+	}
 
-    public Double getPrice() {
-        return price;
-    }
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
+	/**
+	 * Creates new form AddedFoodItem
+	 */
+	public AddedFoodItem() {
+		initComponents();
+	}
 
-    public int getQty() {
-        return qty;
-    }
-
-    public void setQty(int qty) {
-        this.qty = qty;
-    }
-
-    /**
-     * Creates new form AddedFoodItem
-     */
-    public AddedFoodItem() {
-        initComponents();
-    }
-
-    /**
-     * This method is called from within the constructor to initialize the
-     * form. WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+	/**
+	 * This method is called from within the constructor to initialize the
+	 * form. WARNING: Do NOT modify this code. The content of this method is
+	 * always regenerated by the Form Editor.
+	 */
+	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -296,18 +296,18 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        this.parentPanel.remove(this);
+	    // TODO add your handling code here:
+	    this.parentPanel.remove(this);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        Map<String, Object> data = new HashMap<>();
-        data.put("foodName", foodItemName);
-        customize = new Customize(new JFrame(), true, data, this);
-        customize.setValueChangeListener(this);
-        customize.setCustomizationOptionValueChangedListener(this);
-        customize.setVisible(true);
+	    // TODO add your handling code here:
+	    Map<String, Object> data = new HashMap<>();
+	    data.put("foodName", foodItemName);
+	    customize = new Customize(new JFrame(), true, data, this);
+	    customize.setValueChangeListener(this);
+	    customize.setCustomizationOptionValueChangedListener(this);
+	    customize.setVisible(true);
 
 
     }//GEN-LAST:event_jButton1ActionPerformed

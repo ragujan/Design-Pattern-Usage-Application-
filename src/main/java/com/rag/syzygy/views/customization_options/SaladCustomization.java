@@ -6,6 +6,8 @@
 package com.rag.syzygy.views.customization_options;
 
 import com.rag.syzygy.domains.customized_food_domains.CustomizedSaladOptions;
+import com.rag.syzygy.factory.CustomizedOptionsFactory;
+import com.rag.syzygy.util.FoodItemList;
 import java.awt.Window;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
@@ -147,8 +149,20 @@ public class SaladCustomization extends CustomizationOptionPanel {
 		String vegetables = jComboBox3.getSelectedItem().toString();
 		String specialNotes = jTextArea1.getText();
 
-		this.customizationOptions = new CustomizedSaladOptions(tortillaType, proteinOptions, toppings, vegetables, specialNotes);
-                this.valueChanged.valueChanged(this.customizationOptions);
+//		this.customizationOptions = new CustomizedSaladOptions(tortillaType, proteinOptions, toppings, vegetables, specialNotes);
+
+		customizationOptions = CustomizedOptionsFactory.createCustomizedOptions(FoodItemList.SALAD.name());
+		
+		CustomizedSaladOptions customizedSaladOptions = (CustomizedSaladOptions) customizationOptions;
+		customizedSaladOptions.setTortillaType(tortillaType);
+		customizedSaladOptions.setProteinOptions(proteinOptions);
+		customizedSaladOptions.setToppings(toppings);
+		customizedSaladOptions.setVegetables(vegetables);
+		customizedSaladOptions.setSpecialNotes(specialNotes);
+
+		this.customizationOptions = customizedSaladOptions;
+		this.valueChanged.valueChanged(this.customizationOptions);
+		
 
 		JComponent comp = (JComponent) evt.getSource();
 		Window win = SwingUtilities.getWindowAncestor(comp);

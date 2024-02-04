@@ -17,7 +17,10 @@ public class CustomizedBurgerOptions extends CustomizedOptions{
 
     private String specialNote;
 
-    public CustomizedBurgerOptions(String cheeseOptions, String heatLevel, String specialIngredients, String vegetable1, String vegetable2,String specialNote) {
+    public CustomizedBurgerOptions() {
+    }
+
+    public CustomizedBurgerOptions(String cheeseOptions, String heatLevel, String specialIngredients, String vegetable1, String vegetable2, String specialNote) {
         this.cheeseOptions = cheeseOptions;
         this.heatLevel = heatLevel;
         this.specialIngredients = specialIngredients;

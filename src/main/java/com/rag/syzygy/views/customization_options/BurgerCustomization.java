@@ -5,6 +5,8 @@
 package com.rag.syzygy.views.customization_options;
 
 import com.rag.syzygy.domains.customized_food_domains.CustomizedBurgerOptions;
+import com.rag.syzygy.factory.CustomizedOptionsFactory;
+import com.rag.syzygy.util.FoodItemList;
 
 import java.awt.*;
 import javax.swing.*;
@@ -196,6 +198,20 @@ public class BurgerCustomization extends CustomizationOptionPanel {
                 String specialNote = jTextArea1.getText();
 
                 this.customizationOptions = new CustomizedBurgerOptions(cheeseOptions,heatLevel,specialIngredients,vegetable1,vegetable2,specialNote);
+
+		 
+		customizationOptions = CustomizedOptionsFactory.createCustomizedOptions(FoodItemList.BURGER.name());
+		CustomizedBurgerOptions customizedBurgerOptions = (CustomizedBurgerOptions) customizationOptions;
+
+		customizedBurgerOptions.setCheeseOptions(cheeseOptions);
+		customizedBurgerOptions.setHeatLevel(heatLevel);
+		customizedBurgerOptions.setSpecialIngredients(specialIngredients);
+		customizedBurgerOptions.setVegetable1(vegetable1);
+		customizedBurgerOptions.setVegetable2(vegetable2);
+		customizedBurgerOptions.setSpecialNote(specialNote);
+
+		this.customizationOptions = customizedBurgerOptions;
+
                 this.valueChanged.valueChanged(this.customizationOptions);
                 JComponent comp = (JComponent) evt.getSource();
                 Window win = SwingUtilities.getWindowAncestor(comp);
