@@ -5,7 +5,7 @@
 package com.rag.syzygy.views;
 
 import com.rag.syzygy.dao.AddedFoodItemDAO;
-import com.rag.syzygy.dao.context.OrderContext;
+import com.rag.syzygy.context.OrderContext;
 import com.rag.syzygy.domains.CustomerOrder;
 import com.rag.syzygy.domains.customized_food_domains.CustomizedBurgerOptions;
 import com.rag.syzygy.domains.customized_food_domains.CustomizedIceCreamOptions;
@@ -24,7 +24,6 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -196,6 +195,9 @@ public class EmployeeOrderView extends javax.swing.JFrame {
                 scrollPaneCustomerView = new javax.swing.JScrollPane();
                 scrollPaneCustomerViewJPanel = new javax.swing.JPanel();
                 orderCountLabel = new javax.swing.JLabel();
+                jScrollPane1 = new javax.swing.JScrollPane();
+                sendButton = new javax.swing.JButton();
+                messageTextField = new javax.swing.JTextField();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -253,6 +255,13 @@ public class EmployeeOrderView extends javax.swing.JFrame {
                                 .addContainerGap())
                 );
 
+                sendButton.setText("Send");
+                sendButton.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                sendButtonActionPerformed(evt);
+                        }
+                });
+
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
                 layout.setHorizontalGroup(
@@ -267,13 +276,26 @@ public class EmployeeOrderView extends javax.swing.JFrame {
                                                 .addComponent(orderCountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(213, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(messageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(sendButton))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(8, Short.MAX_VALUE))
                 );
                 layout.setVerticalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jScrollPane1)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(messageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(sendButton)))
                                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,6 +308,12 @@ public class EmployeeOrderView extends javax.swing.JFrame {
 
                 pack();
         }// </editor-fold>//GEN-END:initComponents
+
+        private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
+                // TODO add your handling code here:
+		
+		
+        }//GEN-LAST:event_sendButtonActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -327,9 +355,12 @@ public class EmployeeOrderView extends javax.swing.JFrame {
         private javax.swing.JLabel jLabel1;
         private javax.swing.JPanel jPanel1;
         private javax.swing.JPanel jPanel2;
+        private javax.swing.JScrollPane jScrollPane1;
+        private javax.swing.JTextField messageTextField;
         private javax.swing.JLabel orderCountLabel;
         private javax.swing.JPanel orderViewPanel;
         private javax.swing.JScrollPane scrollPaneCustomerView;
         private javax.swing.JPanel scrollPaneCustomerViewJPanel;
+        private javax.swing.JButton sendButton;
         // End of variables declaration//GEN-END:variables
 }

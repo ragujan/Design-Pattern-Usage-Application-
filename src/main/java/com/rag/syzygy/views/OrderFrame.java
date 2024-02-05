@@ -4,11 +4,13 @@
  */
 package com.rag.syzygy.views;
 
+import com.rag.syzygy.design_patterns.mediator.MediatorContext;
 import com.rag.syzygy.dao.AddedFoodItemDAO;
-import com.rag.syzygy.dao.context.OrderContext;
+import com.rag.syzygy.context.OrderContext;
+import com.rag.syzygy.design_patterns.mediator.ActorStorage;
+import com.rag.syzygy.design_patterns.mediator.ChatCustomer;
 import com.rag.syzygy.domains.Customer;
 import com.rag.syzygy.domains.CustomerOrder;
-import com.rag.syzygy.design_patterns.factory.TestFactory;
 import com.rag.syzygy.util.FoodItemList;
 
 import java.awt.BorderLayout;
@@ -251,6 +253,8 @@ public class OrderFrame extends javax.swing.JFrame {
 	    OrderContext.setOrder(createOrder());
 	    CustomerOrderView view = new CustomerOrderView(this.customer);
 	    view.setVisible(true);
+	    ChatCustomer chatCustomer = new ChatCustomer(customer, MediatorContext.getMediator());
+	    ActorStorage.setActor(chatCustomer);
 	    
     }//GEN-LAST:event_jButton2ActionPerformed
 

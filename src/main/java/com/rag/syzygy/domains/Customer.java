@@ -38,4 +38,6 @@ public class Customer {
         this.contact = contact;
         this.address = address;
     }
+
+
 }
