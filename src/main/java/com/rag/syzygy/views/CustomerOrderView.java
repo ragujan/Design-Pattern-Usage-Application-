@@ -7,8 +7,12 @@ package com.rag.syzygy.views;
 import com.rag.syzygy.design_patterns.mediator.MediatorContext;
 import com.rag.syzygy.dao.AddedFoodItemDAO;
 import com.rag.syzygy.context.OrderContext;
+import com.rag.syzygy.design_patterns.mediator.Actor;
 import com.rag.syzygy.design_patterns.mediator.ActorStorage;
+import com.rag.syzygy.design_patterns.mediator.Chat;
 import com.rag.syzygy.design_patterns.mediator.ChatCustomer;
+import com.rag.syzygy.design_patterns.mediator.ChatEmployee;
+import com.rag.syzygy.design_patterns.mediator.ChatHistory;
 import com.rag.syzygy.design_patterns.mediator.EmployeeChatContext;
 import com.rag.syzygy.design_patterns.mediator.Mediator;
 import com.rag.syzygy.domains.Customer;
@@ -25,6 +29,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -68,8 +73,6 @@ public class CustomerOrderView extends javax.swing.JFrame {
 	private JScrollPane scrollPane;
 	private JPanel myJPanel;
 
-	
-
 	public CustomerOrderView(CustomerOrderView orderView) {
 
 	}
@@ -83,7 +86,7 @@ public class CustomerOrderView extends javax.swing.JFrame {
 			for (CustomerOrder order : OrderContext.getOrders()) {
 				if (order.getCustomer().getName().equals(this.customer.getName())) {
 					items = order.getOrders();
-					
+
 					break;
 				}
 			}
@@ -97,7 +100,7 @@ public class CustomerOrderView extends javax.swing.JFrame {
 					CustomizedOptions customizedOptions = item.getCustomizedOptions();
 
 					addedFoodItem.getOrderScrollPaneJPanel();
-					JPanel orderScrollPaneJPanel =  addedFoodItem.getOrderScrollPaneJPanel();
+					JPanel orderScrollPaneJPanel = addedFoodItem.getOrderScrollPaneJPanel();
 //					myJPanel.add(addedFoodItem);
 
 					List<CustomizationLabel> panelList = new LinkedList<>();
@@ -183,6 +186,7 @@ public class CustomerOrderView extends javax.swing.JFrame {
                 messageTextField = new javax.swing.JTextField();
                 sendButton = new javax.swing.JButton();
                 jScrollPane1 = new javax.swing.JScrollPane();
+                chatScrollPane = new javax.swing.JPanel();
                 jLabel2 = new javax.swing.JLabel();
                 jLabel3 = new javax.swing.JLabel();
                 jLabel4 = new javax.swing.JLabel();
@@ -202,6 +206,19 @@ public class CustomerOrderView extends javax.swing.JFrame {
                                 sendButtonActionPerformed(evt);
                         }
                 });
+
+                javax.swing.GroupLayout chatScrollPaneLayout = new javax.swing.GroupLayout(chatScrollPane);
+                chatScrollPane.setLayout(chatScrollPaneLayout);
+                chatScrollPaneLayout.setHorizontalGroup(
+                        chatScrollPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 193, Short.MAX_VALUE)
+                );
+                chatScrollPaneLayout.setVerticalGroup(
+                        chatScrollPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 186, Short.MAX_VALUE)
+                );
+
+                jScrollPane1.setViewportView(chatScrollPane);
 
                 jLabel2.setText("Your Order Details");
 
@@ -275,12 +292,54 @@ public class CustomerOrderView extends javax.swing.JFrame {
                 pack();
         }// </editor-fold>//GEN-END:initComponents
 
+	int rowCount=0;
         private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
-                // TODO add your handling code here:
+		// TODO add your handling code here:
+		chatScrollPane.removeAll();
+		rowCount=0;
 		String message = messageTextField.getText();
 		Mediator mediator = MediatorContext.getMediator();
-		ChatCustomer chatCustomer =(ChatCustomer) ActorStorage.getChatCustomer(customer.getName());
-		mediator.sendMessage(message,chatCustomer,EmployeeChatContext.getMainChatEmployee());
+		ChatCustomer chatCustomer = (ChatCustomer) ActorStorage.getChatCustomer(customer.getName());
+		mediator.sendMessage(message, chatCustomer, EmployeeChatContext.getMainChatEmployee());
+
+		Map<Actor, List<Chat>> chats = ChatHistory.getChats();
+
+		for (Map.Entry<Actor, List<Chat>> entry : chats.entrySet()) {
+			Actor key = entry.getKey();
+			List<Chat> value = entry.getValue();
+
+			if (key instanceof ChatEmployee) {
+
+				ChatEmployee employee = (ChatEmployee) key;
+				System.out.println("Actor is " + employee.getName());
+
+				value.forEach(e -> {
+					ChatCustomer customer = (ChatCustomer) e.getReceive();
+
+					if (customer.getName().equals(this.customer.getName())) {
+//						System.out.println("message " + e.getMessage() + " to " + customer.getName());
+						chatScrollPane.add(new ToChatPanel("Employee", e.getMessage()));
+						rowCount++;
+					}
+				});
+			}
+			if (key instanceof ChatCustomer) {
+				ChatCustomer customer = (ChatCustomer) key;
+
+				System.out.println("Actor is " + customer.getName());
+				value.forEach(e -> {
+					ChatEmployee employee = (ChatEmployee) e.getReceive();
+
+//					System.out.println("message " + e.getMessage() + " to " + employee.getName());
+					chatScrollPane.add(new FromChatPanel(e.getMessage()));
+						rowCount++;
+				});
+			}
+
+		}
+		chatScrollPane.setLayout(new GridLayout(rowCount, 1));
+		chatScrollPane.revalidate();
+		chatScrollPane.repaint();
         }//GEN-LAST:event_sendButtonActionPerformed
 
 	/**
@@ -319,6 +378,7 @@ public class CustomerOrderView extends javax.swing.JFrame {
 	}
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
+        private javax.swing.JPanel chatScrollPane;
         private javax.swing.JLabel customerAddress;
         private javax.swing.JLabel customerContact;
         private javax.swing.JLabel customerName;
