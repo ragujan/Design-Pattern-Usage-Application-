@@ -6,9 +6,14 @@ package com.rag.syzygy.views.customization_options;
 
 import com.rag.syzygy.domains.customized_food_domains.CustomizedOptions;
 import com.rag.syzygy.domains.customized_food_domains.CustomizedPizzaOptions;
-import com.rag.syzygy.factory.CustomizedOptionsFactory;
-import com.rag.syzygy.factory.TestFactory;
+import com.rag.syzygy.design_patterns.factory.CustomizedOptionsFactory;
+import com.rag.syzygy.design_patterns.interpreter.AddOptionExpression;
+import com.rag.syzygy.design_patterns.interpreter.CommandExpression;
+import com.rag.syzygy.design_patterns.interpreter.ExtraNoteContext;
+import com.rag.syzygy.design_patterns.interpreter.RemoveOptionExpression;
+import com.rag.syzygy.design_patterns.interpreter.ToggleOptionExpression;
 import com.rag.syzygy.util.FoodItemList;
+import com.rag.syzygy.util.ExtraNoteCommands;
 import com.rag.syzygy.util.PizzaTopping1;
 import com.rag.syzygy.util.PizzaTopping2;
 
@@ -16,6 +21,7 @@ import java.awt.Window;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
+import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 /**
@@ -27,6 +33,7 @@ public class PizzaCustomization extends CustomizationOptionPanel {
 	 * Creates new form PizzaCustomization
 	 */
 	ButtonGroup crustGroup;
+	ExtraNoteContext pizzaContext;
 //	CustomizationOptions customizationOptions;
 
 	public PizzaCustomization() {
@@ -37,6 +44,7 @@ public class PizzaCustomization extends CustomizationOptionPanel {
 		crustGroup.add(panButton);
 		crustGroup.add(handTossedButton);
 		loadTopping1Options();
+		this.pizzaContext = new ExtraNoteContext();
 	}
 
 	public PizzaCustomization(CustomizedOptions customizationOptions) {
@@ -96,6 +104,14 @@ public class PizzaCustomization extends CustomizationOptionPanel {
                 size = new javax.swing.JComboBox<>();
                 jLabel8 = new javax.swing.JLabel();
                 cheeseOptions = new javax.swing.JComboBox<>();
+                jButton2 = new javax.swing.JButton();
+                jButton3 = new javax.swing.JButton();
+                jButton4 = new javax.swing.JButton();
+                jButton5 = new javax.swing.JButton();
+                jButton6 = new javax.swing.JButton();
+                jButton7 = new javax.swing.JButton();
+                jButton8 = new javax.swing.JButton();
+                jButton9 = new javax.swing.JButton();
 
                 setBackground(new java.awt.Color(204, 153, 255));
 
@@ -166,6 +182,62 @@ public class PizzaCustomization extends CustomizationOptionPanel {
 
                 cheeseOptions.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "American", "cheddar", "Swiss", "pepper jack", "blue cheese" }));
 
+                jButton2.setText("Extra Cheese");
+                jButton2.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton2ActionPerformed(evt);
+                        }
+                });
+
+                jButton3.setText("Extra Onions");
+                jButton3.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton3ActionPerformed(evt);
+                        }
+                });
+
+                jButton4.setText("Extra Spice");
+                jButton4.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton4ActionPerformed(evt);
+                        }
+                });
+
+                jButton5.setText("Extra Salt");
+                jButton5.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton5ActionPerformed(evt);
+                        }
+                });
+
+                jButton6.setText("Less Salt");
+                jButton6.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton6ActionPerformed(evt);
+                        }
+                });
+
+                jButton7.setText("Less Spice");
+                jButton7.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton7ActionPerformed(evt);
+                        }
+                });
+
+                jButton8.setText("Less Onions");
+                jButton8.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton8ActionPerformed(evt);
+                        }
+                });
+
+                jButton9.setText("Less Cheese");
+                jButton9.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton9ActionPerformed(evt);
+                        }
+                });
+
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
                 layout.setHorizontalGroup(
@@ -178,11 +250,11 @@ public class PizzaCustomization extends CustomizationOptionPanel {
                                                 .addComponent(jButton1))
                                         .addComponent(jScrollPane1)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(topping1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(topping1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -192,16 +264,31 @@ public class PizzaCustomization extends CustomizationOptionPanel {
                                                                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                                                                         .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(jLabel6)
-                                                        .addComponent(slices, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(jLabel7)
-                                                        .addComponent(size, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(jLabel8)
-                                                        .addComponent(cheeseOptions, 0, 137, Short.MAX_VALUE))
-                                                .addGap(0, 119, Short.MAX_VALUE)))
+                                                                .addGap(18, 18, 18)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                        .addComponent(jLabel6)
+                                                                        .addComponent(slices, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(jLabel7)
+                                                                        .addComponent(size, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(jLabel8)
+                                                                        .addComponent(cheeseOptions, 0, 137, Short.MAX_VALUE)))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(jButton2)
+                                                                        .addComponent(jButton9))
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(jButton8))
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(jButton4)
+                                                                        .addComponent(jButton7))
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(jButton6)
+                                                                        .addComponent(jButton5))))
+                                                .addGap(0, 118, Short.MAX_VALUE)))
                                 .addContainerGap())
                 );
                 layout.setVerticalGroup(
@@ -236,6 +323,18 @@ public class PizzaCustomization extends CustomizationOptionPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(cheeseOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton2)
+                                        .addComponent(jButton3)
+                                        .addComponent(jButton4)
+                                        .addComponent(jButton5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton6)
+                                        .addComponent(jButton7)
+                                        .addComponent(jButton8)
+                                        .addComponent(jButton9))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -292,12 +391,97 @@ public class PizzaCustomization extends CustomizationOptionPanel {
 	    win.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+        private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+		// TODO add your handling code here:
+		String extraCheese = ExtraNoteCommands.EXTRA_CHEESE.name();
+
+		CommandExpression toggleExpression = new ToggleOptionExpression(extraCheese);
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.LESS_CHEESE.name());
+		toggleExpression.interpret(pizzaContext);
+		removeDetailsExpression.interpret(pizzaContext);
+		extraNotes.setText(pizzaContext.toString());
+
+        }//GEN-LAST:event_jButton2ActionPerformed
+
+        private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+		// TODO add your handling code here:
+		String extraCheese = ExtraNoteCommands.EXTRA_ONIONS.name();
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(extraCheese);
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.LESS_ONIONS.name());
+		toggleDetailsExpression.interpret(pizzaContext);
+		removeDetailsExpression.interpret(pizzaContext);
+		extraNotes.setText(pizzaContext.toString());
+        }//GEN-LAST:event_jButton3ActionPerformed
+
+        private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+		// TODO add your handling code here:
+		String lessCheese = ExtraNoteCommands.LESS_CHEESE.name();
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(lessCheese);
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.EXTRA_CHEESE.name());
+		toggleDetailsExpression.interpret(pizzaContext);
+		removeDetailsExpression.interpret(pizzaContext);
+		extraNotes.setText(pizzaContext.toString());
+        }//GEN-LAST:event_jButton9ActionPerformed
+
+        private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.LESS_ONIONS.name());
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.EXTRA_ONIONS.name());
+		toggleDetailsExpression.interpret(pizzaContext);
+		removeDetailsExpression.interpret(pizzaContext);
+		extraNotes.setText(pizzaContext.toString());
+        }//GEN-LAST:event_jButton8ActionPerformed
+
+        private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.EXTRA_SPICE.name());
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.LESS_SPICE.name());
+		toggleDetailsExpression.interpret(pizzaContext);
+		removeDetailsExpression.interpret(pizzaContext);
+		extraNotes.setText(pizzaContext.toString());
+        }//GEN-LAST:event_jButton4ActionPerformed
+
+        private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.LESS_SPICE.name());
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.EXTRA_SPICE.name());
+		toggleDetailsExpression.interpret(pizzaContext);
+		removeDetailsExpression.interpret(pizzaContext);
+		extraNotes.setText(pizzaContext.toString());
+        }//GEN-LAST:event_jButton7ActionPerformed
+
+        private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.EXTRA_SALT.name());
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.LESS_SALT.name());
+		toggleDetailsExpression.interpret(pizzaContext);
+		removeDetailsExpression.interpret(pizzaContext);
+		extraNotes.setText(pizzaContext.toString());
+        }//GEN-LAST:event_jButton5ActionPerformed
+
+        private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.LESS_SALT.name());
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.EXTRA_SALT.name());
+		toggleDetailsExpression.interpret(pizzaContext);
+		removeDetailsExpression.interpret(pizzaContext);
+		extraNotes.setText(pizzaContext.toString());
+        }//GEN-LAST:event_jButton6ActionPerformed
+
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private javax.swing.JComboBox<String> cheeseOptions;
         private javax.swing.JTextArea extraNotes;
         private javax.swing.JRadioButton handTossedButton;
         private javax.swing.JButton jButton1;
+        private javax.swing.JButton jButton2;
+        private javax.swing.JButton jButton3;
+        private javax.swing.JButton jButton4;
+        private javax.swing.JButton jButton5;
+        private javax.swing.JButton jButton6;
+        private javax.swing.JButton jButton7;
+        private javax.swing.JButton jButton8;
+        private javax.swing.JButton jButton9;
         private javax.swing.JLabel jLabel1;
         private javax.swing.JLabel jLabel2;
         private javax.swing.JLabel jLabel3;

@@ -7,8 +7,7 @@ package com.rag.syzygy.views;
 import com.rag.syzygy.dao.AddedFoodItemDAO;
 import com.rag.syzygy.domains.Customer;
 import com.rag.syzygy.domains.CustomerOrder;
-import com.rag.syzygy.factory.CustomizedOptionsFactory;
-import com.rag.syzygy.factory.TestFactory;
+import com.rag.syzygy.design_patterns.factory.TestFactory;
 import com.rag.syzygy.util.FoodItemList;
 
 import java.awt.BorderLayout;

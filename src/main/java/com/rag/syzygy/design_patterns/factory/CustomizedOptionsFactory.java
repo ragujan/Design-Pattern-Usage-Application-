@@ -1,4 +1,4 @@
-package com.rag.syzygy.factory;
+package com.rag.syzygy.design_patterns.factory;
 
 import com.rag.syzygy.domains.customized_food_domains.*;
 import com.rag.syzygy.util.FoodItemList;

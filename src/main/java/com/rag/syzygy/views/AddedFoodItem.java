@@ -5,7 +5,7 @@
 package com.rag.syzygy.views;
 
 import com.rag.syzygy.domains.customized_food_domains.*;
-import com.rag.syzygy.factory.TestFactory;
+import com.rag.syzygy.design_patterns.factory.TestFactory;
 import com.rag.syzygy.util.FoodItemList;
 import com.rag.syzygy.views.customization_options.CustomizationLabel;
 import com.rag.syzygy.listeners.ValueChangeListener;

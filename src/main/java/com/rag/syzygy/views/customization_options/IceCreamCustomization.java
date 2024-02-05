@@ -5,7 +5,7 @@
 package com.rag.syzygy.views.customization_options;
 
 import com.rag.syzygy.domains.customized_food_domains.CustomizedIceCreamOptions;
-import com.rag.syzygy.factory.CustomizedOptionsFactory;
+import com.rag.syzygy.design_patterns.factory.CustomizedOptionsFactory;
 import com.rag.syzygy.util.FoodItemList;
 
 import java.awt.*;

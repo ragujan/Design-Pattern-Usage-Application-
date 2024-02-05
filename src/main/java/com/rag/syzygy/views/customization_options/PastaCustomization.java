@@ -5,7 +5,12 @@
 package com.rag.syzygy.views.customization_options;
 
 import com.rag.syzygy.domains.customized_food_domains.CustomizedPastaOptions;
-import com.rag.syzygy.factory.CustomizedOptionsFactory;
+import com.rag.syzygy.design_patterns.factory.CustomizedOptionsFactory;
+import com.rag.syzygy.design_patterns.interpreter.CommandExpression;
+import com.rag.syzygy.design_patterns.interpreter.ExtraNoteContext;
+import com.rag.syzygy.design_patterns.interpreter.RemoveOptionExpression;
+import com.rag.syzygy.design_patterns.interpreter.ToggleOptionExpression;
+import com.rag.syzygy.util.ExtraNoteCommands;
 import com.rag.syzygy.util.FoodItemList;
 
 import java.awt.Window;
@@ -23,7 +28,10 @@ public class PastaCustomization extends CustomizationOptionPanel {
 	 */
 	public PastaCustomization() {
 		initComponents();
+		context = new ExtraNoteContext();
 	}
+
+	private ExtraNoteContext context;
 
 	/**
 	 * This method is called from within the constructor to initialize the
@@ -45,10 +53,16 @@ public class PastaCustomization extends CustomizationOptionPanel {
                 jComboBox4 = new javax.swing.JComboBox<>();
                 jLabel6 = new javax.swing.JLabel();
                 jScrollPane1 = new javax.swing.JScrollPane();
-                jTextArea1 = new javax.swing.JTextArea();
+                extraNoteLabel = new javax.swing.JTextArea();
                 jButton1 = new javax.swing.JButton();
                 jLabel7 = new javax.swing.JLabel();
                 jComboBox5 = new javax.swing.JComboBox<>();
+                jButton7 = new javax.swing.JButton();
+                jButton6 = new javax.swing.JButton();
+                jButton5 = new javax.swing.JButton();
+                jButton4 = new javax.swing.JButton();
+                jButton8 = new javax.swing.JButton();
+                jButton9 = new javax.swing.JButton();
 
                 jLabel1.setText("Pasta Customization");
 
@@ -70,9 +84,9 @@ public class PastaCustomization extends CustomizationOptionPanel {
 
                 jLabel6.setText("Special Notes");
 
-                jTextArea1.setColumns(20);
-                jTextArea1.setRows(5);
-                jScrollPane1.setViewportView(jTextArea1);
+                extraNoteLabel.setColumns(20);
+                extraNoteLabel.setRows(5);
+                jScrollPane1.setViewportView(extraNoteLabel);
 
                 jButton1.setText("Done");
                 jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -84,6 +98,48 @@ public class PastaCustomization extends CustomizationOptionPanel {
                 jLabel7.setText("Vegetable option");
 
                 jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Broccoli", "Mushrooms", "Cherry Tomatoes", "Spinach", "Bell Peppers" }));
+
+                jButton7.setText("Less Spice");
+                jButton7.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton7ActionPerformed(evt);
+                        }
+                });
+
+                jButton6.setText("Less Salt");
+                jButton6.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton6ActionPerformed(evt);
+                        }
+                });
+
+                jButton5.setText("Extra Salt");
+                jButton5.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton5ActionPerformed(evt);
+                        }
+                });
+
+                jButton4.setText("Extra Spice");
+                jButton4.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton4ActionPerformed(evt);
+                        }
+                });
+
+                jButton8.setText("Low Carb");
+                jButton8.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton8ActionPerformed(evt);
+                        }
+                });
+
+                jButton9.setText("Extra Cream");
+                jButton9.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton9ActionPerformed(evt);
+                        }
+                });
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
                 this.setLayout(layout);
@@ -114,7 +170,21 @@ public class PastaCustomization extends CustomizationOptionPanel {
                                                                         .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(jLabel7)
                                                                         .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                        .addComponent(jLabel6))
+                                                        .addComponent(jLabel6)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(jButton4)
+                                                                        .addComponent(jButton7))
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addComponent(jButton5)
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                                        .addGroup(layout.createSequentialGroup()
+                                                                                .addComponent(jButton6)
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                .addComponent(jButton9)))))
                                                 .addGap(0, 149, Short.MAX_VALUE)))
                                 .addContainerGap())
                 );
@@ -150,10 +220,20 @@ public class PastaCustomization extends CustomizationOptionPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton4)
+                                        .addComponent(jButton5)
+                                        .addComponent(jButton8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton6)
+                                        .addComponent(jButton7)
+                                        .addComponent(jButton9))
+                                .addGap(2, 2, 2)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1)
-                                .addContainerGap(12, Short.MAX_VALUE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
         }// </editor-fold>//GEN-END:initComponents
 
@@ -164,7 +244,7 @@ public class PastaCustomization extends CustomizationOptionPanel {
 	    String proteinAddition = jComboBox3.getSelectedItem().toString();
 	    String vegetableOption = jComboBox4.getSelectedItem().toString();
 	    String cheeseTopping = jComboBox5.getSelectedItem().toString();
-	    String specialNote = jTextArea1.getText();
+	    String specialNote = extraNoteLabel.getText();
 
 //	    this.customizationOptions = new CustomizedPastaOptions(
 //		    type,
@@ -191,9 +271,66 @@ public class PastaCustomization extends CustomizationOptionPanel {
 	    win.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+        private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.LESS_SPICE.name());
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.EXTRA_SPICE.name());
+		toggleDetailsExpression.interpret(context);
+		removeDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton7ActionPerformed
+
+        private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.LESS_SALT.name());
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.EXTRA_SALT.name());
+		toggleDetailsExpression.interpret(context);
+		removeDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton6ActionPerformed
+
+        private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.EXTRA_SALT.name());
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.LESS_SALT.name());
+		toggleDetailsExpression.interpret(context);
+		removeDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton5ActionPerformed
+
+        private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.EXTRA_SPICE.name());
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.LESS_SPICE.name());
+		toggleDetailsExpression.interpret(context);
+		removeDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton4ActionPerformed
+
+        private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.LOW_CARB.name());
+		toggleDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton8ActionPerformed
+
+        private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.EXTRA_CREAM.name());
+		toggleDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton9ActionPerformed
+
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
+        private javax.swing.JTextArea extraNoteLabel;
         private javax.swing.JButton jButton1;
+        private javax.swing.JButton jButton4;
+        private javax.swing.JButton jButton5;
+        private javax.swing.JButton jButton6;
+        private javax.swing.JButton jButton7;
+        private javax.swing.JButton jButton8;
+        private javax.swing.JButton jButton9;
         private javax.swing.JComboBox<String> jComboBox1;
         private javax.swing.JComboBox<String> jComboBox2;
         private javax.swing.JComboBox<String> jComboBox3;
@@ -207,6 +344,5 @@ public class PastaCustomization extends CustomizationOptionPanel {
         private javax.swing.JLabel jLabel6;
         private javax.swing.JLabel jLabel7;
         private javax.swing.JScrollPane jScrollPane1;
-        private javax.swing.JTextArea jTextArea1;
         // End of variables declaration//GEN-END:variables
 }
