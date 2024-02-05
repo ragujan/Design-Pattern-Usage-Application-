@@ -6,6 +6,11 @@ package com.rag.syzygy.views.customization_options;
 
 import com.rag.syzygy.domains.customized_food_domains.CustomizedIceCreamOptions;
 import com.rag.syzygy.design_patterns.factory.CustomizedOptionsFactory;
+import com.rag.syzygy.design_patterns.interpreter.CommandExpression;
+import com.rag.syzygy.design_patterns.interpreter.ExtraNoteContext;
+import com.rag.syzygy.design_patterns.interpreter.RemoveOptionExpression;
+import com.rag.syzygy.design_patterns.interpreter.ToggleOptionExpression;
+import com.rag.syzygy.util.ExtraNoteCommands;
 import com.rag.syzygy.util.FoodItemList;
 
 import java.awt.*;
@@ -21,7 +26,10 @@ public class IceCreamCustomization extends CustomizationOptionPanel {
 	 */
 	public IceCreamCustomization() {
 		initComponents();
+		context = new ExtraNoteContext();
+
 	}
+	private ExtraNoteContext context;
 
 	/**
 	 * This method is called from within the constructor to initialize the
@@ -46,7 +54,10 @@ public class IceCreamCustomization extends CustomizationOptionPanel {
                 jComboBox5 = new javax.swing.JComboBox<>();
                 jLabel7 = new javax.swing.JLabel();
                 jScrollPane1 = new javax.swing.JScrollPane();
-                jTextArea1 = new javax.swing.JTextArea();
+                extraNoteLabel = new javax.swing.JTextArea();
+                jButton8 = new javax.swing.JButton();
+                jButton9 = new javax.swing.JButton();
+                jButton10 = new javax.swing.JButton();
                 jButton1 = new javax.swing.JButton();
 
                 jLabel1.setText("Burger Customization");
@@ -73,9 +84,30 @@ public class IceCreamCustomization extends CustomizationOptionPanel {
 
                 jLabel7.setText("Special Notes");
 
-                jTextArea1.setColumns(20);
-                jTextArea1.setRows(5);
-                jScrollPane1.setViewportView(jTextArea1);
+                extraNoteLabel.setColumns(20);
+                extraNoteLabel.setRows(5);
+                jScrollPane1.setViewportView(extraNoteLabel);
+
+                jButton8.setText("Less Sugar");
+                jButton8.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton8ActionPerformed(evt);
+                        }
+                });
+
+                jButton9.setText("Extra Cherry");
+                jButton9.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton9ActionPerformed(evt);
+                        }
+                });
+
+                jButton10.setText("Extra Sugar");
+                jButton10.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton10ActionPerformed(evt);
+                        }
+                });
 
                 javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
                 jPanel1.setLayout(jPanel1Layout);
@@ -84,26 +116,37 @@ public class IceCreamCustomization extends CustomizationOptionPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jLabel4)))
+                                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                        .addComponent(jLabel4)))
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addContainerGap()
+                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(jLabel2)
+                                                                        .addComponent(jLabel3)
+                                                                        .addComponent(jLabel7))))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel5)
+                                                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addGap(6, 6, 6)
+                                                                .addComponent(jLabel6))
+                                                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addContainerGap()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel2)
-                                                        .addComponent(jLabel3)
-                                                        .addComponent(jLabel7))))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(6, 6, 6)
-                                                .addComponent(jLabel6))
-                                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addGap(1, 1, 1)
+                                                                .addComponent(jButton9)))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
                 jPanel1Layout.setVerticalGroup(
@@ -133,7 +176,13 @@ public class IceCreamCustomization extends CustomizationOptionPanel {
                                 .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 26, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton8)
+                                        .addComponent(jButton10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
                 );
@@ -181,7 +230,7 @@ public class IceCreamCustomization extends CustomizationOptionPanel {
 	    String toppings = jComboBox3.getSelectedItem().toString();
 	    String mixIns = jComboBox4.getSelectedItem().toString();
 	    String extras = jComboBox5.getSelectedItem().toString();
-	    String specialNote = jTextArea1.getText();
+	    String specialNote = extraNoteLabel.getText();
 
 //        this.customizationOptions = new CustomizedIceCreamOptions(baseFlavour, sauces, toppings, mixIns, extras, specialNote);
 	    this.customizationOptions = CustomizedOptionsFactory.createCustomizedOptions(FoodItemList.ICE_CREAM.name());
@@ -203,9 +252,39 @@ public class IceCreamCustomization extends CustomizationOptionPanel {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+        private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.LESS_SUGAR.name());
+		// TODO add your handling code here:
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.EXTRA_SUGAR.name());
+		toggleDetailsExpression.interpret(context);
+		removeDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton8ActionPerformed
+
+        private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.EXTRA_CHERRY.name());
+		toggleDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton9ActionPerformed
+
+        private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.LESS_SUGAR.name());
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.EXTRA_SUGAR.name());
+		toggleDetailsExpression.interpret(context);
+		removeDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton10ActionPerformed
+
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
+        private javax.swing.JTextArea extraNoteLabel;
         private javax.swing.JButton jButton1;
+        private javax.swing.JButton jButton10;
+        private javax.swing.JButton jButton8;
+        private javax.swing.JButton jButton9;
         private javax.swing.JComboBox<String> jComboBox1;
         private javax.swing.JComboBox<String> jComboBox2;
         private javax.swing.JComboBox<String> jComboBox3;
@@ -220,6 +299,5 @@ public class IceCreamCustomization extends CustomizationOptionPanel {
         private javax.swing.JLabel jLabel7;
         private javax.swing.JPanel jPanel1;
         private javax.swing.JScrollPane jScrollPane1;
-        private javax.swing.JTextArea jTextArea1;
         // End of variables declaration//GEN-END:variables
 }

@@ -56,7 +56,7 @@ public class ExtraNoteContext {
 			if (value) {
 				builder.append(key.toLowerCase().replace("_", " "));
 				if (index < trueCount-1) {
-					builder.append(" and ");
+					builder.append(" ,");
 					index++;
 				}
 			}
