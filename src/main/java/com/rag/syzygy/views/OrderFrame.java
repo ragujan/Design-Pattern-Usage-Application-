@@ -5,6 +5,7 @@
 package com.rag.syzygy.views;
 
 import com.rag.syzygy.dao.AddedFoodItemDAO;
+import com.rag.syzygy.dao.context.OrderContext;
 import com.rag.syzygy.domains.Customer;
 import com.rag.syzygy.domains.CustomerOrder;
 import com.rag.syzygy.design_patterns.factory.TestFactory;
@@ -16,6 +17,7 @@ import java.awt.Component;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.BoxLayout;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -42,14 +44,12 @@ public class OrderFrame extends javax.swing.JFrame {
 	public OrderFrame() {
 		initComponents();
 		myJPanel = new JPanel();
-		
 		myJPanel.setLayout(new BoxLayout(myJPanel, BoxLayout.Y_AXIS));
 		myJPanel.setBackground(Color.YELLOW);
 		scrollPane = new JScrollPane(myJPanel);
 		scrollPane.setBackground(Color.YELLOW);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-//		scrollPane.add(myJPanel);
 		jPanel1.add(scrollPane, BorderLayout.CENTER);
 //
 
@@ -58,8 +58,7 @@ public class OrderFrame extends javax.swing.JFrame {
 		this.setLocationRelativeTo(null);
 		
 		this.customer = new Customer();
-		System.out.println("static value is " + TestFactory.myStaticValue);
-		TestFactory.myStaticValue = "Changed";
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
 	public void setCustomerLabels() {
@@ -124,7 +123,6 @@ public class OrderFrame extends javax.swing.JFrame {
                 jButton2 = new javax.swing.JButton();
                 jLabel5 = new javax.swing.JLabel();
                 customerContactLabel = new javax.swing.JLabel();
-                jButton4 = new javax.swing.JButton();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -204,13 +202,6 @@ public class OrderFrame extends javax.swing.JFrame {
 
                 jLabel5.setText("Contact");
 
-                jButton4.setText("jButton4");
-                jButton4.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                jButton4ActionPerformed(evt);
-                        }
-                });
-
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
                 layout.setHorizontalGroup(
@@ -225,10 +216,7 @@ public class OrderFrame extends javax.swing.JFrame {
                                                 .addGap(26, 26, 26)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(customerContactLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(jButton4)))
+                                                        .addComponent(customerContactLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
                                 .addContainerGap())
@@ -244,9 +232,7 @@ public class OrderFrame extends javax.swing.JFrame {
                                                 .addComponent(jLabel5)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(customerContactLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jButton4)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap())
@@ -262,7 +248,10 @@ public class OrderFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 	    // TODO add your handling code here:
-	    createOrder();
+	    OrderContext.setOrder(createOrder());
+	    CustomerOrderView view = new CustomerOrderView(this.customer);
+	    view.setVisible(true);
+	    
     }//GEN-LAST:event_jButton2ActionPerformed
 
         private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -271,12 +260,6 @@ public class OrderFrame extends javax.swing.JFrame {
 		CustomerDetailsDialog dialog = new CustomerDetailsDialog(this);
 		dialog.setVisible(true);
         }//GEN-LAST:event_jButton3ActionPerformed
-
-        private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-		// TODO add your handling code here:
-//		System.out.println("test value again in main frame " + TestFactory.myStaticValue);
-//		System.out.println("cached customized option is " + CustomizedOptionsFactory.createCustomizedOptions(FoodItemList.PIZZA.name()));
-        }//GEN-LAST:event_jButton4ActionPerformed
 	
 	public void addFoodItem() {
 		String foodItemName = jComboBox1.getSelectedItem().toString();
@@ -373,7 +356,6 @@ public class OrderFrame extends javax.swing.JFrame {
         private javax.swing.JButton jButton1;
         private javax.swing.JButton jButton2;
         private javax.swing.JButton jButton3;
-        private javax.swing.JButton jButton4;
         private javax.swing.JComboBox<String> jComboBox1;
         private javax.swing.JComboBox<String> jComboBox2;
         private javax.swing.JLabel jLabel1;

@@ -4,6 +4,9 @@
  */
 package com.rag.syzygy.views;
 
+import com.rag.syzygy.dao.context.OrderContext;
+import javax.swing.JFrame;
+
 /**
  *
  * @author ACER
@@ -15,6 +18,16 @@ public class OrderView extends javax.swing.JFrame {
 	 */
 	public OrderView() {
 		initComponents();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		orderCount();
+	}
+
+	public void orderCount() {
+		if (OrderContext.getOrders() != null) {
+			orderCountLabel.setText(Integer.toString(OrderContext.getOrders().size()));
+		}else{
+			orderCountLabel.setText("0");
+		}
 	}
 
 	/**
@@ -27,13 +40,15 @@ public class OrderView extends javax.swing.JFrame {
         private void initComponents() {
 
                 jLabel1 = new javax.swing.JLabel();
-                jTextField1 = new javax.swing.JTextField();
+                orderCountLabel = new javax.swing.JLabel();
+                jPanel1 = new javax.swing.JPanel();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-                jLabel1.setText("Your Details");
+                jLabel1.setText("Orders in Hand");
 
-                jTextField1.setText("jTextField1");
+                jPanel1.setBackground(new java.awt.Color(0, 255, 51));
+                jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
@@ -41,19 +56,25 @@ public class OrderView extends javax.swing.JFrame {
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(732, Short.MAX_VALUE))
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(orderCountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+                                .addGap(65, 65, 65))
                 );
                 layout.setVerticalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel1)
-                                .addGap(54, 54, 54)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(286, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(orderCountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel1))
+                                                .addGap(0, 347, Short.MAX_VALUE)))
+                                .addContainerGap())
                 );
 
                 pack();
@@ -96,6 +117,7 @@ public class OrderView extends javax.swing.JFrame {
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private javax.swing.JLabel jLabel1;
-        private javax.swing.JTextField jTextField1;
+        private javax.swing.JPanel jPanel1;
+        private javax.swing.JLabel orderCountLabel;
         // End of variables declaration//GEN-END:variables
 }
