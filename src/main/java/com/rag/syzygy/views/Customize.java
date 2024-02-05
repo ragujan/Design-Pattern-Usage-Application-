@@ -30,6 +30,8 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
 	private CustomizationOptionValueChangedListener customizationOptionValueChangedListener;
 	private static CustomizedOptionsFactory factory;
 
+	private AddedFoodItem addedFoodItemParent;
+
 	public static CustomizedOptionsFactory getFactory(){
               return factory;
 	}
@@ -49,6 +51,7 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
 //        }
 //        if(this.customizationOptions instanceof CustomizedPastaOptions customizedPastaOptions){
 		this.customizationOptionValueChangedListener.valueChanged(customizationOptions);
+		this.addedFoodItemParent.revalidateScrollPanel();
 //        }
 	}
 
@@ -66,6 +69,7 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
 //        this.addedFoodItem = addedFoodItem;
 		this.listener = addedFoodItem;
 		this.customizationOptionValueChangedListener = addedFoodItem;
+		this.addedFoodItemParent = addedFoodItem;
 		orderOptions();
 	}
 
@@ -109,6 +113,7 @@ public class Customize extends javax.swing.JDialog implements CustomizationOptio
 		customizationPanel.repaint();
 		this.revalidate();
 		this.repaint();
+		this.addedFoodItemParent.revalidateScrollPanel();
 
 // Repeat for other food items
 	}

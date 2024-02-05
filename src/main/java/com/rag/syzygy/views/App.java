@@ -78,7 +78,7 @@ public class App extends javax.swing.JFrame {
 
         private void ManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManagementActionPerformed
                 // TODO add your handling code here:
-		OrderView frame = new OrderView();
+		EmployeeOrderView frame = new EmployeeOrderView();
 		frame.setVisible(true);
         }//GEN-LAST:event_ManagementActionPerformed
 
