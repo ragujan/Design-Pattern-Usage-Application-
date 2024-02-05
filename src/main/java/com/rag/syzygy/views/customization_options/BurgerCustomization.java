@@ -6,6 +6,11 @@ package com.rag.syzygy.views.customization_options;
 
 import com.rag.syzygy.domains.customized_food_domains.CustomizedBurgerOptions;
 import com.rag.syzygy.design_patterns.factory.CustomizedOptionsFactory;
+import com.rag.syzygy.design_patterns.interpreter.CommandExpression;
+import com.rag.syzygy.design_patterns.interpreter.ExtraNoteContext;
+import com.rag.syzygy.design_patterns.interpreter.RemoveOptionExpression;
+import com.rag.syzygy.design_patterns.interpreter.ToggleOptionExpression;
+import com.rag.syzygy.util.ExtraNoteCommands;
 import com.rag.syzygy.util.FoodItemList;
 
 import java.awt.*;
@@ -17,11 +22,14 @@ import javax.swing.*;
  */
 public class BurgerCustomization extends CustomizationOptionPanel {
 
+	private ExtraNoteContext context;
+
 	/**
 	 * Creates new form PizzaCustomization
 	 */
 	public BurgerCustomization() {
 		initComponents();
+		context = new ExtraNoteContext();
 	}
 
 	/**
@@ -47,7 +55,13 @@ public class BurgerCustomization extends CustomizationOptionPanel {
                 jComboBox5 = new javax.swing.JComboBox<>();
                 jLabel7 = new javax.swing.JLabel();
                 jScrollPane1 = new javax.swing.JScrollPane();
-                jTextArea1 = new javax.swing.JTextArea();
+                extraNoteLabel = new javax.swing.JTextArea();
+                jButton6 = new javax.swing.JButton();
+                jButton7 = new javax.swing.JButton();
+                jButton4 = new javax.swing.JButton();
+                jButton5 = new javax.swing.JButton();
+                jButton8 = new javax.swing.JButton();
+                jButton9 = new javax.swing.JButton();
                 jButton1 = new javax.swing.JButton();
 
                 jLabel1.setText("Burger Customization");
@@ -74,9 +88,51 @@ public class BurgerCustomization extends CustomizationOptionPanel {
 
                 jLabel7.setText("Special Notes");
 
-                jTextArea1.setColumns(20);
-                jTextArea1.setRows(5);
-                jScrollPane1.setViewportView(jTextArea1);
+                extraNoteLabel.setColumns(20);
+                extraNoteLabel.setRows(5);
+                jScrollPane1.setViewportView(extraNoteLabel);
+
+                jButton6.setText("Less Salt");
+                jButton6.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton6ActionPerformed(evt);
+                        }
+                });
+
+                jButton7.setText("Less Spice");
+                jButton7.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton7ActionPerformed(evt);
+                        }
+                });
+
+                jButton4.setText("Extra Spice");
+                jButton4.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton4ActionPerformed(evt);
+                        }
+                });
+
+                jButton5.setText("Extra Salt");
+                jButton5.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton5ActionPerformed(evt);
+                        }
+                });
+
+                jButton8.setText("Low Fat");
+                jButton8.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton8ActionPerformed(evt);
+                        }
+                });
+
+                jButton9.setText("Extra Mustard");
+                jButton9.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jButton9ActionPerformed(evt);
+                        }
+                });
 
                 javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
                 jPanel1.setLayout(jPanel1Layout);
@@ -105,9 +161,6 @@ public class BurgerCustomization extends CustomizationOptionPanel {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(jLabel7))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                                 .addContainerGap()
@@ -116,7 +169,25 @@ public class BurgerCustomization extends CustomizationOptionPanel {
                                                 .addGap(18, 18, 18)
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(jLabel5)
-                                                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel7)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(jButton4)
+                                                                        .addComponent(jButton7))
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                                .addComponent(jButton6)
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                .addComponent(jButton9))
+                                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                                .addComponent(jButton5)
+                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                                .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
                 jPanel1Layout.setVerticalGroup(
@@ -149,6 +220,16 @@ public class BurgerCustomization extends CustomizationOptionPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton4)
+                                        .addComponent(jButton5)
+                                        .addComponent(jButton8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton6)
+                                        .addComponent(jButton7)
+                                        .addComponent(jButton9))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
                 );
@@ -189,17 +270,16 @@ public class BurgerCustomization extends CustomizationOptionPanel {
         }// </editor-fold>//GEN-END:initComponents
 
         private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                // TODO add your handling code here:
-                String cheeseOptions = jComboBox1.getSelectedItem().toString();
-                String heatLevel = jComboBox2.getSelectedItem().toString();
-                String specialIngredients = jComboBox3.getSelectedItem().toString();
-                String vegetable1 = jComboBox4.getSelectedItem().toString();
-                String vegetable2 = jComboBox5.getSelectedItem().toString();
-                String specialNote = jTextArea1.getText();
+		// TODO add your handling code here:
+		String cheeseOptions = jComboBox1.getSelectedItem().toString();
+		String heatLevel = jComboBox2.getSelectedItem().toString();
+		String specialIngredients = jComboBox3.getSelectedItem().toString();
+		String vegetable1 = jComboBox4.getSelectedItem().toString();
+		String vegetable2 = jComboBox5.getSelectedItem().toString();
+		String specialNote = extraNoteLabel.getText();
 
-                this.customizationOptions = new CustomizedBurgerOptions(cheeseOptions,heatLevel,specialIngredients,vegetable1,vegetable2,specialNote);
+		this.customizationOptions = new CustomizedBurgerOptions(cheeseOptions, heatLevel, specialIngredients, vegetable1, vegetable2, specialNote);
 
-		 
 		customizationOptions = CustomizedOptionsFactory.createCustomizedOptions(FoodItemList.BURGER.name());
 		CustomizedBurgerOptions customizedBurgerOptions = (CustomizedBurgerOptions) customizationOptions;
 
@@ -212,15 +292,72 @@ public class BurgerCustomization extends CustomizationOptionPanel {
 
 		this.customizationOptions = customizedBurgerOptions;
 
-                this.valueChanged.valueChanged(this.customizationOptions);
-                JComponent comp = (JComponent) evt.getSource();
-                Window win = SwingUtilities.getWindowAncestor(comp);
-                win.dispose();
+		this.valueChanged.valueChanged(this.customizationOptions);
+		JComponent comp = (JComponent) evt.getSource();
+		Window win = SwingUtilities.getWindowAncestor(comp);
+		win.dispose();
         }//GEN-LAST:event_jButton1ActionPerformed
+
+        private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.LESS_SALT.name());
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.EXTRA_SALT.name());
+		toggleDetailsExpression.interpret(context);
+		removeDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton6ActionPerformed
+
+        private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.LESS_SPICE.name());
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.EXTRA_SPICE.name());
+		toggleDetailsExpression.interpret(context);
+		removeDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton7ActionPerformed
+
+        private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.EXTRA_SPICE.name());
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.LESS_SPICE.name());
+		toggleDetailsExpression.interpret(context);
+		removeDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton4ActionPerformed
+
+        private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.EXTRA_SALT.name());
+		CommandExpression removeDetailsExpression = new RemoveOptionExpression(ExtraNoteCommands.LESS_SALT.name());
+		toggleDetailsExpression.interpret(context);
+		removeDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton5ActionPerformed
+
+        private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.LOW_FAT.name());
+		toggleDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton8ActionPerformed
+
+        private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+		// TODO add your handling code here:
+		CommandExpression toggleDetailsExpression = new ToggleOptionExpression(ExtraNoteCommands.EXTRA_MUSTARD.name());
+		toggleDetailsExpression.interpret(context);
+		extraNoteLabel.setText(context.toString());
+        }//GEN-LAST:event_jButton9ActionPerformed
 
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
+        private javax.swing.JTextArea extraNoteLabel;
         private javax.swing.JButton jButton1;
+        private javax.swing.JButton jButton4;
+        private javax.swing.JButton jButton5;
+        private javax.swing.JButton jButton6;
+        private javax.swing.JButton jButton7;
+        private javax.swing.JButton jButton8;
+        private javax.swing.JButton jButton9;
         private javax.swing.JComboBox<String> jComboBox1;
         private javax.swing.JComboBox<String> jComboBox2;
         private javax.swing.JComboBox<String> jComboBox3;
@@ -235,6 +372,5 @@ public class BurgerCustomization extends CustomizationOptionPanel {
         private javax.swing.JLabel jLabel7;
         private javax.swing.JPanel jPanel1;
         private javax.swing.JScrollPane jScrollPane1;
-        private javax.swing.JTextArea jTextArea1;
         // End of variables declaration//GEN-END:variables
 }
