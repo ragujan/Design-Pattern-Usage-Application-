@@ -8,11 +8,20 @@ import com.rag.syzygy.dao.AddedFoodItemDAO;
 import com.rag.syzygy.dao.context.OrderContext;
 import com.rag.syzygy.domains.Customer;
 import com.rag.syzygy.domains.CustomerOrder;
+import com.rag.syzygy.domains.customized_food_domains.CustomizedBurgerOptions;
+import com.rag.syzygy.domains.customized_food_domains.CustomizedIceCreamOptions;
+import com.rag.syzygy.domains.customized_food_domains.CustomizedOptions;
+import com.rag.syzygy.domains.customized_food_domains.CustomizedPastaOptions;
+import com.rag.syzygy.domains.customized_food_domains.CustomizedPizzaOptions;
+import com.rag.syzygy.domains.customized_food_domains.CustomizedSaladOptions;
+import com.rag.syzygy.views.customization_options.CustomizationLabel;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.BoxLayout;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -38,15 +47,23 @@ public class CustomerOrderView extends javax.swing.JFrame {
 		scrollPane.setBackground(Color.YELLOW);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-		jPanel1.add(scrollPane, BorderLayout.CENTER);
+		orderViewPanel.add(scrollPane, BorderLayout.CENTER);
 		addFoodItem();
+		customerName.setText(customer.getName());
+		customerContact.setText(customer.getContact());
+		customerAddress.setText(customer.getAddress());
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setLocationRelativeTo(null);
 
 	}
-	public CustomerOrderView(){
+
+	public CustomerOrderView() {
 		initComponents();
 	}
 	private JScrollPane scrollPane;
 	private JPanel myJPanel;
+
+	
 
 	public CustomerOrderView(CustomerOrderView orderView) {
 
@@ -54,12 +71,14 @@ public class CustomerOrderView extends javax.swing.JFrame {
 
 	public void addFoodItem() {
 
+		myJPanel.removeAll();
 		if (OrderContext.getOrders() != null) {
 			List<AddedFoodItemDAO> items = new LinkedList<>();
 
 			for (CustomerOrder order : OrderContext.getOrders()) {
 				if (order.getCustomer().getName().equals(this.customer.getName())) {
 					items = order.getOrders();
+					
 					break;
 				}
 			}
@@ -69,12 +88,80 @@ public class CustomerOrderView extends javax.swing.JFrame {
 				for (AddedFoodItemDAO item : items) {
 					String foodItemName = item.getFoodItemName();
 					int qty = item.getQty();
-					myJPanel.add(new AddedFoodItem(foodItemName, qty, myJPanel));
+					AddedFoodItem addedFoodItem = new AddedFoodItem(foodItemName, qty, myJPanel);
+					CustomizedOptions customizedOptions = item.getCustomizedOptions();
+
+					addedFoodItem.getOrderScrollPaneJPanel();
+					JPanel orderScrollPaneJPanel =  addedFoodItem.getOrderScrollPaneJPanel();
+//					myJPanel.add(addedFoodItem);
+
+					List<CustomizationLabel> panelList = new LinkedList<>();
+					if (customizedOptions instanceof CustomizedPizzaOptions customizedPizzaOptions) {
+						panelList.add(new CustomizationLabel("crust", customizedPizzaOptions.getCrust()));
+						panelList.add(new CustomizationLabel("size", customizedPizzaOptions.getSize()));
+						panelList.add(new CustomizationLabel("topping1", customizedPizzaOptions.getToppings1()));
+						panelList.add(new CustomizationLabel("topping2", customizedPizzaOptions.getToppings2()));
+						panelList.add(new CustomizationLabel("slices", Integer.toString(customizedPizzaOptions.getSlices())));
+						panelList.add(new CustomizationLabel("cheese options", customizedPizzaOptions.getCheeseOptions()));
+						panelList.add(new CustomizationLabel("description", customizedPizzaOptions.getDescription()));
+					}
+					if (customizedOptions instanceof CustomizedPastaOptions customizedPastaOptions) {
+						panelList.add(new CustomizationLabel("type", customizedPastaOptions.getType()));
+						panelList.add(new CustomizationLabel("sauce", customizedPastaOptions.getSauce()));
+						panelList.add(new CustomizationLabel("cheese toppings", customizedPastaOptions.getCheeseToppings()));
+						panelList.add(new CustomizationLabel("protein addition", customizedPastaOptions.getProteinAddition()));
+						panelList.add(new CustomizationLabel("vegetable option", customizedPastaOptions.getVegetableOption()));
+						panelList.add(new CustomizationLabel("special notes", customizedPastaOptions.getSpecialNotes()));
+
+					}
+
+					if (customizedOptions instanceof CustomizedSaladOptions customizedSaladOptions) {
+
+						panelList.add(new CustomizationLabel("tortilla type", customizedSaladOptions.getTortillaType()));
+						panelList.add(new CustomizationLabel("protein options", customizedSaladOptions.getProteinOptions()));
+						panelList.add(new CustomizationLabel("toppings", customizedSaladOptions.getToppings()));
+						panelList.add(new CustomizationLabel("vegetables", customizedSaladOptions.getVegetables()));
+						panelList.add(new CustomizationLabel("special notes", customizedSaladOptions.getSpecialNotes()));
+
+					}
+
+					if (customizedOptions instanceof CustomizedBurgerOptions customizedBurgerOptions) {
+						panelList.add(new CustomizationLabel("cheese options", customizedBurgerOptions.getCheeseOptions()));
+						panelList.add(new CustomizationLabel("heat level", customizedBurgerOptions.getHeatLevel()));
+						panelList.add(new CustomizationLabel("special ingredients", customizedBurgerOptions.getSpecialIngredients()));
+						panelList.add(new CustomizationLabel("vegetable 1", customizedBurgerOptions.getVegetable1()));
+						panelList.add(new CustomizationLabel("vegetable 2", customizedBurgerOptions.getVegetable2()));
+						panelList.add(new CustomizationLabel("special note", customizedBurgerOptions.getSpecialNote()));
+
+					}
+
+					if (customizedOptions instanceof CustomizedIceCreamOptions customizedIceCreamOptions) {
+						panelList.add(new CustomizationLabel("base flavour", customizedIceCreamOptions.getBaseFlavour()));
+						panelList.add(new CustomizationLabel("sauces", customizedIceCreamOptions.getSauces()));
+						panelList.add(new CustomizationLabel("toppings", customizedIceCreamOptions.getToppings()));
+						panelList.add(new CustomizationLabel("mix-ins", customizedIceCreamOptions.getMixIns()));
+						panelList.add(new CustomizationLabel("extras", customizedIceCreamOptions.getExtras()));
+						panelList.add(new CustomizationLabel("special note", customizedIceCreamOptions.getSpecialNote()));
+
+					}
+					orderScrollPaneJPanel.setLayout(new GridLayout(panelList.size(), 1));
+					for (CustomizationLabel panel : panelList) {
+						orderScrollPaneJPanel.add(panel);
+						customizedOptions.getKeysValue().put(panel.getjLabel1().getText(), panel.getjLabel2().getText());
+					}
+					orderScrollPaneJPanel.setLayout(new GridLayout(panelList.size(), 1));
+					for (CustomizationLabel panel : panelList) {
+						orderScrollPaneJPanel.add(panel);
+						customizedOptions.getKeysValue().put(panel.getjLabel1().getText(), panel.getjLabel2().getText());
+					}
+					addedFoodItem.setOrderScrollPaneJPanel(orderScrollPaneJPanel);
+					myJPanel.add(addedFoodItem);
+					myJPanel.revalidate();
+					myJPanel.repaint();
+
 				}
 			}
 		}
-		
-
 
 	}
 
@@ -95,10 +182,10 @@ public class CustomerOrderView extends javax.swing.JFrame {
                 jLabel3 = new javax.swing.JLabel();
                 jLabel4 = new javax.swing.JLabel();
                 jLabel5 = new javax.swing.JLabel();
-                jLabel6 = new javax.swing.JLabel();
-                jLabel7 = new javax.swing.JLabel();
-                jLabel8 = new javax.swing.JLabel();
-                jPanel1 = new javax.swing.JPanel();
+                customerName = new javax.swing.JLabel();
+                customerContact = new javax.swing.JLabel();
+                customerAddress = new javax.swing.JLabel();
+                orderViewPanel = new javax.swing.JPanel();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,8 +201,8 @@ public class CustomerOrderView extends javax.swing.JFrame {
 
                 jLabel5.setText("Address");
 
-                jPanel1.setBackground(new java.awt.Color(0, 255, 51));
-                jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+                orderViewPanel.setBackground(new java.awt.Color(0, 255, 51));
+                orderViewPanel.setLayout(new javax.swing.BoxLayout(orderViewPanel, javax.swing.BoxLayout.LINE_AXIS));
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
@@ -128,12 +215,12 @@ public class CustomerOrderView extends javax.swing.JFrame {
                                         .addComponent(jLabel3)
                                         .addComponent(jLabel5)
                                         .addComponent(jLabel4)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(customerName, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(customerAddress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(customerContact, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
+                                .addComponent(orderViewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
@@ -152,17 +239,17 @@ public class CustomerOrderView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(customerName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(customerContact, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 88, Short.MAX_VALUE))
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(customerAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(orderViewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel1)
@@ -213,17 +300,17 @@ public class CustomerOrderView extends javax.swing.JFrame {
 	}
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
+        private javax.swing.JLabel customerAddress;
+        private javax.swing.JLabel customerContact;
+        private javax.swing.JLabel customerName;
         private javax.swing.JLabel jLabel1;
         private javax.swing.JLabel jLabel2;
         private javax.swing.JLabel jLabel3;
         private javax.swing.JLabel jLabel4;
         private javax.swing.JLabel jLabel5;
-        private javax.swing.JLabel jLabel6;
-        private javax.swing.JLabel jLabel7;
-        private javax.swing.JLabel jLabel8;
-        private javax.swing.JPanel jPanel1;
         private javax.swing.JScrollPane jScrollPane1;
         private javax.swing.JTextField messageTextField;
+        private javax.swing.JPanel orderViewPanel;
         private javax.swing.JButton sendButton;
         // End of variables declaration//GEN-END:variables
 }

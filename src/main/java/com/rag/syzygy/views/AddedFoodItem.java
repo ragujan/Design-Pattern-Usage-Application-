@@ -59,6 +59,14 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
 	public void valueChanged(String newValue) {
 	}
 
+	public JPanel getOrderScrollPaneJPanel() {
+		return this.orderScrollPaneJPanel;
+	}
+
+	public void setOrderScrollPaneJPanel(JPanel jPanel) {
+		 this.orderScrollPaneJPanel = jPanel;
+	}
+
 	@Override
 	public void valueChanged(CustomizedOptions customizedOptions) {
 		this.customizedOptions = customizedOptions;
@@ -300,6 +308,10 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
 	    this.parentPanel.remove(this);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    public void revalidateScrollPanel(){
+	    this.orderScrollPaneJPanel.revalidate();
+	    this.orderScrollPaneJPanel.repaint();
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 	    // TODO add your handling code here:
 	    Map<String, Object> data = new HashMap<>();
@@ -308,6 +320,7 @@ public class AddedFoodItem extends javax.swing.JPanel implements ValueChangeList
 	    customize.setValueChangeListener(this);
 	    customize.setCustomizationOptionValueChangedListener(this);
 	    customize.setVisible(true);
+	    
 
 
     }//GEN-LAST:event_jButton1ActionPerformed

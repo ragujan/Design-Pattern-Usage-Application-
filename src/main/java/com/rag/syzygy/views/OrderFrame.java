@@ -259,6 +259,7 @@ public class OrderFrame extends javax.swing.JFrame {
 
 		CustomerDetailsDialog dialog = new CustomerDetailsDialog(this);
 		dialog.setVisible(true);
+//		this.dispose();
         }//GEN-LAST:event_jButton3ActionPerformed
 	
 	public void addFoodItem() {
