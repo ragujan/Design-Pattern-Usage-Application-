@@ -23,6 +23,7 @@ import com.rag.syzygy.domains.customized_food_domains.CustomizedOptions;
 import com.rag.syzygy.domains.customized_food_domains.CustomizedPastaOptions;
 import com.rag.syzygy.domains.customized_food_domains.CustomizedPizzaOptions;
 import com.rag.syzygy.domains.customized_food_domains.CustomizedSaladOptions;
+import com.rag.syzygy.util.ChatActorUtil;
 import com.rag.syzygy.views.customization_options.CustomizationLabel;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -75,6 +76,52 @@ public class CustomerOrderView extends javax.swing.JFrame {
 
 	public CustomerOrderView(CustomerOrderView orderView) {
 
+	}
+
+	private void loadChat() {
+		chatScrollPane.removeAll();
+		rowCount = 0;
+
+		Map<Actor, List<Chat>> chats = ChatHistory.getChats();
+
+		for (Map.Entry<Actor, List<Chat>> entry : chats.entrySet()) {
+			Actor key = entry.getKey();
+			List<Chat> value = entry.getValue();
+
+//			if (ChatActorUtil.getName(key).equals(this.customer.getName())) {
+			if (key instanceof ChatCustomer) {
+				value.forEach(e -> {
+					if (e.getSender() instanceof ChatCustomer) {
+						ChatCustomer customer = (ChatCustomer) key;
+
+						if (customer.getName().equals(this.customer.getName())) {
+//						System.out.println("message " + e.getMessage() + " to " + customer.getName());
+							chatScrollPane.add(new ToChatPanel(e.getMessage()));
+							rowCount++;
+						}
+					}
+
+				});
+			}
+
+			if (key instanceof ChatEmployee) {
+
+				ChatEmployee employee = (ChatEmployee) key;
+
+				value.forEach(e -> {
+					ChatCustomer customer = (ChatCustomer) e.getReceive();
+
+					if (customer.getName().equals(this.customer.getName())) {
+						chatScrollPane.add(new FromChatPanel("Employee", e.getMessage()));
+						rowCount++;
+					}
+				});
+			}
+
+		}
+		chatScrollPane.setLayout(new GridLayout(rowCount, 1));
+		chatScrollPane.revalidate();
+		chatScrollPane.repaint();
 	}
 
 	public void addFoodItem() {
@@ -207,6 +254,12 @@ public class CustomerOrderView extends javax.swing.JFrame {
                         }
                 });
 
+                chatScrollPane.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                chatScrollPaneMouseClicked(evt);
+                        }
+                });
+
                 javax.swing.GroupLayout chatScrollPaneLayout = new javax.swing.GroupLayout(chatScrollPane);
                 chatScrollPane.setLayout(chatScrollPaneLayout);
                 chatScrollPaneLayout.setHorizontalGroup(
@@ -292,55 +345,21 @@ public class CustomerOrderView extends javax.swing.JFrame {
                 pack();
         }// </editor-fold>//GEN-END:initComponents
 
-	int rowCount=0;
+	int rowCount = 0;
         private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
 		// TODO add your handling code here:
-		chatScrollPane.removeAll();
-		rowCount=0;
 		String message = messageTextField.getText();
 		Mediator mediator = MediatorContext.getMediator();
 		ChatCustomer chatCustomer = (ChatCustomer) ActorStorage.getChatCustomer(customer.getName());
 		mediator.sendMessage(message, chatCustomer, EmployeeChatContext.getMainChatEmployee());
-
-		Map<Actor, List<Chat>> chats = ChatHistory.getChats();
-
-		for (Map.Entry<Actor, List<Chat>> entry : chats.entrySet()) {
-			Actor key = entry.getKey();
-			List<Chat> value = entry.getValue();
-
-			if (key instanceof ChatEmployee) {
-
-				ChatEmployee employee = (ChatEmployee) key;
-				System.out.println("Actor is " + employee.getName());
-
-				value.forEach(e -> {
-					ChatCustomer customer = (ChatCustomer) e.getReceive();
-
-					if (customer.getName().equals(this.customer.getName())) {
-//						System.out.println("message " + e.getMessage() + " to " + customer.getName());
-						chatScrollPane.add(new ToChatPanel("Employee", e.getMessage()));
-						rowCount++;
-					}
-				});
-			}
-			if (key instanceof ChatCustomer) {
-				ChatCustomer customer = (ChatCustomer) key;
-
-				System.out.println("Actor is " + customer.getName());
-				value.forEach(e -> {
-					ChatEmployee employee = (ChatEmployee) e.getReceive();
-
-//					System.out.println("message " + e.getMessage() + " to " + employee.getName());
-					chatScrollPane.add(new FromChatPanel(e.getMessage()));
-						rowCount++;
-				});
-			}
-
-		}
-		chatScrollPane.setLayout(new GridLayout(rowCount, 1));
-		chatScrollPane.revalidate();
-		chatScrollPane.repaint();
+		loadChat();
+		messageTextField.setText("");
         }//GEN-LAST:event_sendButtonActionPerformed
+
+        private void chatScrollPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatScrollPaneMouseClicked
+		// TODO add your handling code here:
+		loadChat();
+        }//GEN-LAST:event_chatScrollPaneMouseClicked
 
 	/**
 	 * @param args the command line arguments

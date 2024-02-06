@@ -14,9 +14,9 @@ public class Chat {
 	private Actor receiver;
 	private String message;
 
-	public Chat(Actor sender, Actor receive, String message) {
+	public Chat(Actor sender, Actor receiver, String message) {
 		this.sender = sender;
-		this.receiver = receive;
+		this.receiver = receiver;
 		this.message = message;
 	}
 

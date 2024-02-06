@@ -110,6 +110,9 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="chatScrollPane">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="chatScrollPaneMouseClicked"/>
+          </Events>
 
           <Layout>
             <DimensionLayout dim="0">

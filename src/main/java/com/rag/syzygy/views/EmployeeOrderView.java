@@ -21,6 +21,7 @@ import com.rag.syzygy.domains.customized_food_domains.CustomizedOptions;
 import com.rag.syzygy.domains.customized_food_domains.CustomizedPastaOptions;
 import com.rag.syzygy.domains.customized_food_domains.CustomizedPizzaOptions;
 import com.rag.syzygy.domains.customized_food_domains.CustomizedSaladOptions;
+import com.rag.syzygy.util.ChatActorUtil;
 import com.rag.syzygy.views.customization_options.CustomizationLabel;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -78,6 +79,8 @@ public class EmployeeOrderView extends javax.swing.JFrame {
 					public void actionPerformed(ActionEvent e) {
 						addFoodItem(order.getCustomer().getName());
 						selectedCustomer = order.getCustomer();
+						chatScrollPane.removeAll();
+						loadChat();
 					}
 				});
 				scrollPaneCustomerViewJPanel.add(button);
@@ -183,6 +186,45 @@ public class EmployeeOrderView extends javax.swing.JFrame {
 
 	}
 
+	private void loadChat() {
+		chatScrollPane.removeAll();
+
+		Map<Actor, List<Chat>> chats = ChatHistory.getChats();
+
+		for (Map.Entry<Actor, List<Chat>> entry : chats.entrySet()) {
+			Actor key = entry.getKey();
+			List<Chat> value = entry.getValue();
+
+			if (ChatActorUtil.getName(key).equals(this.selectedCustomer.getName())) {
+
+				value.forEach(e -> {
+
+					chatScrollPane.add(new FromChatPanel(this.selectedCustomer.getName(), e.getMessage()));
+					rowCount++;
+				});
+			}
+
+			if (key instanceof ChatEmployee) {
+
+				ChatEmployee employee = (ChatEmployee) key;
+				System.out.println("Actor is " + employee.getName());
+
+				value.forEach(e -> {
+					ChatCustomer customer = (ChatCustomer) e.getReceive();
+
+					if (customer.getName().equals(this.selectedCustomer.getName())) {
+						chatScrollPane.add(new ToChatPanel(e.getMessage()));
+						rowCount++;
+					}
+				});
+			}
+
+		}
+		chatScrollPane.setLayout(new GridLayout(rowCount, 1));
+		chatScrollPane.revalidate();
+		chatScrollPane.repaint();
+	}
+
 	public void orderCount() {
 		if (OrderContext.getOrders() != null) {
 			orderCountLabel.setText(Integer.toString(OrderContext.getOrders().size()));
@@ -268,6 +310,12 @@ public class EmployeeOrderView extends javax.swing.JFrame {
                                 .addContainerGap())
                 );
 
+                chatScrollPane.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                chatScrollPaneMouseClicked(evt);
+                        }
+                });
+
                 javax.swing.GroupLayout chatScrollPaneLayout = new javax.swing.GroupLayout(chatScrollPane);
                 chatScrollPane.setLayout(chatScrollPaneLayout);
                 chatScrollPaneLayout.setHorizontalGroup(
@@ -327,7 +375,7 @@ public class EmployeeOrderView extends javax.swing.JFrame {
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(jLabel1)
                                                         .addComponent(orderCountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap())
                 );
@@ -338,53 +386,20 @@ public class EmployeeOrderView extends javax.swing.JFrame {
 	int rowCount = 0;
         private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
 		// TODO add your handling code here:
-
 		ChatEmployee chatEmployee = EmployeeChatContext.getMainChatEmployee();
 
 		ChatCustomer chatCustomer1 = new ChatCustomer(selectedCustomer, MediatorContext.getMediator());
 
 		chatEmployee.sendMessage(messageTextField.getText(), chatCustomer1);
-
-				Map<Actor, List<Chat>> chats = ChatHistory.getChats();
-
-		for (Map.Entry<Actor, List<Chat>> entry : chats.entrySet()) {
-			Actor key = entry.getKey();
-			List<Chat> value = entry.getValue();
-
-			if (key instanceof ChatEmployee) {
-
-				ChatEmployee employee = (ChatEmployee) key;
-				System.out.println("Actor is " + employee.getName());
-
-				value.forEach(e -> {
-					ChatCustomer customer = (ChatCustomer) e.getReceive();
-
-					if (customer.getName().equals(this.selectedCustomer.getName())) {
-//						System.out.println("message " + e.getMessage() + " to " + customer.getName());
-						chatScrollPane.add(new FromChatPanel( e.getMessage()));
-						rowCount++;
-					}
-				});
-			}
-			if (key instanceof ChatCustomer) {
-				ChatCustomer customer = (ChatCustomer) key;
-
-				System.out.println("Actor is " + customer.getName());
-				value.forEach(e -> {
-					ChatEmployee employee = (ChatEmployee) e.getReceive();
-
-//					System.out.println("message " + e.getMessage() + " to " + employee.getName());
-					chatScrollPane.add(new ToChatPanel(this.selectedCustomer.getName(),e.getMessage()));
-						rowCount++;
-				});
-			}
-
-		}
-		chatScrollPane.setLayout(new GridLayout(rowCount, 1));
-		chatScrollPane.revalidate();
-		chatScrollPane.repaint();
+		loadChat();
+		messageTextField.setText("");
 
         }//GEN-LAST:event_sendButtonActionPerformed
+
+        private void chatScrollPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatScrollPaneMouseClicked
+		// TODO add your handling code here:
+		loadChat();
+        }//GEN-LAST:event_chatScrollPaneMouseClicked
 
 	/**
 	 * @param args the command line arguments
